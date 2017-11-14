@@ -3,11 +3,11 @@ var locationLink = '';
 
 var item = browser.storage.sync.get("data");
 item.then((res) => {
-	if (res.data && res.data["locations"] && res.data["locations"].length > 0) {
-		for (var i = 0; i < res.data["locations"].length; i++) {
-			var source = res.data["locations"][i][0];
-			var target = res.data["locations"][i][1];
-			var loop = res.data["locations"][i][2];
+	if (res.data && res.data.length > 0) {
+		for (var i = 0; i < res.data.length; i++) {
+			var source = res.data[i][0];
+			var target = res.data[i][1];
+			var loop = res.data[i][2];
 
 			// console.log(`${i} = ${source} / ${target} / ${loop}`);
 			locations[source] = target;
