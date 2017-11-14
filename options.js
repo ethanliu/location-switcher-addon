@@ -17,10 +17,11 @@ function saveOptions() {
 	}
 
 	if (result.length > 0) {
-		var json = {};
-		json["locations"] = result;
+		// var json = {};
+		// json["locations"] = result;
 		browser.storage.sync.set({
-			data: json
+			// data: json
+			data: result
 		});
 	}
 }
@@ -32,9 +33,9 @@ function onError(error) {
 function restoreOptions() {
 	var item = browser.storage.sync.get("data");
 	item.then((res) => {
-		if (res.data && res.data["locations"] && res.data["locations"].length > 0) {
-			for (var i = 0; i < res.data["locations"].length; i++) {
-				insertOptionAfter(null, res.data["locations"][i]);
+		if (res.data && res.data.length > 0) {
+			for (var i = 0; i < res.data.length; i++) {
+				insertOptionAfter(null, res.data[i]);
 			}
 		}
 		else {
