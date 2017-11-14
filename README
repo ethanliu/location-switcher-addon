@@ -1,0 +1,7 @@
+
+
+Location Switcher is a navigation help tool for web develoeprs.  It allows you to easily switching between sites, i.e. Swtiching between "localhost" and "example.com" just by one click.
+
+"Loop" option is on by default and fits most cases, it means you can switch from "source" to "target" and from "target" to "source".
+
+Disable "loop" to make a one way only route or create your own loop, i.e. a -> b, b -> c, c -> a, etc.

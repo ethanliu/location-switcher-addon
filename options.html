@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<style>
+	.row { width: 100%; margin-bottom: 1rem; clear: both;}
+	.col1 { width: 35%; display: inline-block; }
+	.col2 { width: 10%; display: inline-block; white-space: nowrap; }
+	.col3 { width: 15%; display: inline-block; white-space: nowrap; }
+	.template { display: none; }
+	input[type="url"],input[type="text"] {
+		width: 100%;
+	}
+	</style>
+</head>
+<body>
+
+<p>Location Switcher is a navigation help tool for web develoeprs.  It allows you to easily switching between sites, i.e. Swtiching between "localhost" and "example.com" just by one click.</p>
+<p>"Loop" option is on by default and fits most cases, it means you can switch from "source" to "target" and from "target" to "source".</p>
+<p>Disable "loop" to make a one way only route or create your own loop, i.e. a -> b, b -> c, c -> a, etc.</p>
+
+<p><br></p>
+<form name="form">
+
+	<div class="row">
+		<div class="col1">Source</div>
+		<div class="col1">Target</div>
+		<div class="col2">Loop</div>
+		<div class="col3"></div>
+	</div>
+
+	<div class="content">
+
+
+	</div>
+
+	<div class="row">
+		<button type="submit">Save</button>
+	</div>
+
+		<div class="template">
+			<div class="col1"><input type="url" name="source[]" value="" placeholder="http://"></div>
+			<div class="col1"><input type="url" name="target[]" value="" placeholder="http://"></div>
+			<div class="col2"><label><input type="checkbox" name="loop[]" value="1" checked> Yes</label></div>
+			<div class="col3">
+				<button type="button" class="add-button">+</button>
+				<button type="button" class="del-button">-</button>
+			</div>
+		</div>
+
+</form>
+
+
+<script src="options.js"></script>
+
+</body>
+</html>
