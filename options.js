@@ -48,7 +48,8 @@ function insertOptionAfter(node, data) {
 	var template = document.querySelector(".template");
 	var box = document.createElement('div');
 	box.className = "row";
-	box.innerHTML = template.innerHTML;
+	// box.innerHTML = template.innerHTML;
+	box.insertAdjacentHTML('beforeend', template.innerHTML);
 
 	if (data) {
 		box.querySelector("input[name='source[]']").value = data[0];

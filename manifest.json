@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Location Switcher",
-	"version": "1.0",
+	"version": "1.0.1",
 	"description": "Swtiching between development and production servers.",
 	"homepage_url": "https://github.com/ethanliu/location-switcher-addon",
 
