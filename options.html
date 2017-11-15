@@ -15,9 +15,34 @@
 </head>
 <body>
 
-<p>Location Switcher is a navigation help tool for web develoeprs.  It allows you to easily switching between sites, i.e. Swtiching between "localhost" and "example.com" just by one click.</p>
-<p>"Loop" option is on by default and fits most cases, it means you can switch from "source" to "target" and from "target" to "source".</p>
-<p>Disable "loop" to make a one way only route or create your own loop, i.e. a -> b, b -> c, c -> a, etc.</p>
+Location Switcher lets you to switching between sites by click the ☯ icon in address bar.<br>
+<br>
+In most cases, you would like to witching between development and production sites.<br>
+<br>
+You may also create a one way route only, allows switch to "http://example.com" from "http://localhost", but can't switch to "http://localhost" from "http://example.com".<br>
+It also allows you to create your own loop. For example:<br>
+<br>
+http://dev3.local -> http://localhost/demo (both way)<br>
+http://localhost -> http://example.com (both way)<br>
+http://dev1.local -> http://localhost (one way)<br>
+http://dev2.local -> http://localhost (one way)<br>
+<br>
+or create your custom loop<br>
+<br>
+http://project.local -> http://test1.server (one way)<br>
+http://test2.server -> http://test3.server (one way)<br>
+http://test3.server -> http://live.server (one way)<br>
+http://live.server -> http://project.local (one way)<br>
+<br>
+Please notice that, the preference will not testing any conflicts, and it follows the order to matching the URL.<br>
+<br>
+### Download<br>
+<br>
+https://addons.mozilla.org/en-US/firefox/addon/location-switcher<br>
+<br>
+### Source code<br>
+<br>
+https://github.com/ethanliu/location-switcher-addon<br>
 
 <p><br></p>
 <form name="form">
