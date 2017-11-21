@@ -17,13 +17,12 @@ function saveOptions() {
 	}
 
 	if (result.length > 0) {
-		// var json = {};
-		// json["locations"] = result;
 		browser.storage.sync.set({
-			// data: json
 			data: result
 		});
 	}
+
+	browser.runtime.reload();
 }
 
 function onError(error) {
@@ -48,7 +47,6 @@ function insertOptionAfter(node, data) {
 	var template = document.querySelector(".template");
 	var box = document.createElement('div');
 	box.className = "row";
-	// box.innerHTML = template.innerHTML;
 	box.insertAdjacentHTML('beforeend', template.innerHTML);
 
 	if (data) {

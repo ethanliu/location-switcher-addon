@@ -14,11 +14,11 @@ http://dev2.local -> http://localhost (one way)
 or create your custom loop
 
 http://project.local -> http://test1.server (one way)
-http://test2.server -> http://test3.server (one way)
-http://test3.server -> http://live.server (one way)
+http://test1.server -> http://test2.server (one way)
+http://test2.server -> http://live.server (one way)
 http://live.server -> http://project.local (one way)
 
-Please notice that, the preference will not testing any conflicts, and it follows the order to matching the URLs.
+Please notice that, the preference will not test any conflicts, and it follows the order to matching the URLs.
 
 ## Download
 
