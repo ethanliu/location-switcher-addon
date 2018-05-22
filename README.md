@@ -6,17 +6,17 @@ You may also create a one way route, allows switch to "http://example.com" from 
 
 It also allows you to create your own loop. For example:
 
-http://dev3.local -> http://localhost/demo (both way)
-http://localhost -> http://example.com (both way)
-http://dev1.local -> http://localhost (one way)
-http://dev2.local -> http://localhost (one way)
+http://dev3.local <-> http://localhost/demo
+http://localhost <-> http://example.com
+http://dev1.local -> http://localhost
+http://dev2.local -> http://localhost
 
 or create your custom loop
 
-http://project.local -> http://test1.server (one way)
-http://test1.server -> http://test2.server (one way)
-http://test2.server -> http://live.server (one way)
-http://live.server -> http://project.local (one way)
+http://project.local -> http://test1.server
+http://test1.server -> http://test2.server
+http://test2.server -> http://live.server
+http://live.server -> http://project.local
 
 Please notice that, the preference will not test any conflicts, and it follows the order to matching the URLs.
 

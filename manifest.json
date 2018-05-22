@@ -1,8 +1,8 @@
 {
 	"manifest_version": 2,
 	"name": "Location Switcher",
-	"version": "1.0.2",
-	"description": "Swtiching between development and production servers.",
+	"version": "1.1.0",
+	"description": "Switching between development and production servers.",
 	"homepage_url": "https://github.com/ethanliu/location-switcher-addon",
 
 	"icons": {
@@ -19,16 +19,15 @@
 
 	"permissions": [
 		"tabs",
-		"storage"
+		"storage",
+		"theme"
 	],
 
 	"page_action": {
 		"browser_style": true,
-		"default_icon": {
-			"19": "icons/icon-19.png",
-			"38": "icons/icon-38.png"
-		},
-		"default_title": "Next location"
+		"default_icon": "icons/light.svg",
+		"default_title": "Next location",
+		"default_popup": "/popup/popup.html"
 	},
 
 	"options_ui": {
@@ -40,4 +39,4 @@
 		"scripts": ["background.js"]
 	}
 
- }
+}

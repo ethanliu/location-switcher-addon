@@ -1,37 +1,38 @@
 function saveOptions() {
-	var result = [];
-	var form = document.forms["form"];
-	var total = document.querySelectorAll(".content .row").length;
+	var data = [];
+	let form = document.forms["form"];
+	let total = document.querySelectorAll(".content .row").length;
+	let darkThemeEnabled = form.elements["darktheme"].checked;
+	let sortEnabled = form.elements["sort"].checked;
 
 	for (var i = 0; i < total; i++) {
-		var source = form.elements["source[]"][i].value.trim();
-		var target = form.elements["target[]"][i].value.trim();
-		var loop = form.elements["loop[]"][i].checked;
+		let source = form.elements["source[]"][i].value.trim();
+		let target = form.elements["target[]"][i].value.trim();
+		let loop = form.elements["loop[]"][i].checked;
 
 		if (source == "" || target == "") {
 			continue;
 		}
 
-		var item = [source, target, loop];
-		result.push(item);
+		let item = [source, target, loop];
+		data.push(item);
 	}
 
-	if (result.length > 0) {
-		browser.storage.sync.set({
-			data: result
-		});
-	}
+	browser.storage.sync.set({
+		data: data,
+		darkThemeEnabled: darkThemeEnabled,
+		sortEnabled: sortEnabled
+	});
 
 	browser.runtime.reload();
 }
 
-function onError(error) {
+function handleError(error) {
 	console.log(error);
 }
 
 function restoreOptions() {
-	var item = browser.storage.sync.get("data");
-	item.then((res) => {
+	browser.storage.sync.get("data").then((res) => {
 		if (res.data && res.data.length > 0) {
 			for (var i = 0; i < res.data.length; i++) {
 				insertOptionAfter(null, res.data[i]);
@@ -40,7 +41,19 @@ function restoreOptions() {
 		else {
 			insertOptionAfter();
 		}
-	}, onError);
+	}, handleError);
+
+	browser.storage.sync.get("darkThemeEnabled").then((res) => {
+		if (res.darkThemeEnabled) {
+			document.forms["form"].elements["darktheme"].checked = true;
+		}
+	}, handleError);
+
+	browser.storage.sync.get("sortEnabled").then((res) => {
+		if (res.sortEnabled) {
+			document.forms["form"].elements["sort"].checked = true;
+		}
+	}, handleError);
 }
 
 function insertOptionAfter(node, data) {

@@ -7,44 +7,43 @@
 	.col1 { width: 35%; display: inline-block; }
 	.col2 { width: 10%; display: inline-block; white-space: nowrap; }
 	.col3 { width: 15%; display: inline-block; white-space: nowrap; }
-	.template { display: none; }
-	input[type="url"],input[type="text"] {
-		width: 100%;
-	}
+	input[type="url"],input[type="text"] { width: 100%; }
 	</style>
 </head>
 <body>
 
-Uncheck the "Loop" to create one way route, which only allows switch from "Source" to "Target" and no backward.
+<p>Uncheck the "Loop" to create one way route, which only allows switching from "Source" to "Destination" without backward.</p>
+<p>Multiple Source or Destination will shows as popup</p>
 
 <p><br></p>
 <form name="form">
 
+	<div class="row"><label><input type="checkbox" name="darktheme" value="1"> Dark theme</label></div>
+	<div class="row"><label><input type="checkbox" name="sort" value="1"> Sort destinations in popup</label></div>
+
 	<div class="row">
 		<div class="col1">Source</div>
-		<div class="col1">Target</div>
+		<div class="col1">Destination</div>
 		<div class="col2">Loop</div>
 		<div class="col3"></div>
 	</div>
 
 	<div class="content">
-
-
 	</div>
 
 	<div class="row">
 		<button type="submit">Save</button>
 	</div>
 
-		<div class="template">
-			<div class="col1"><input type="url" name="source[]" value="" placeholder="http://"></div>
-			<div class="col1"><input type="url" name="target[]" value="" placeholder="http://"></div>
-			<div class="col2"><label><input type="checkbox" name="loop[]" value="1" checked> Yes</label></div>
-			<div class="col3">
-				<button type="button" class="add-button">+</button>
-				<button type="button" class="del-button">-</button>
-			</div>
+	<template class="template">
+		<div class="col1"><input type="url" name="source[]" value="" placeholder="http://"></div>
+		<div class="col1"><input type="url" name="target[]" value="" placeholder="http://"></div>
+		<div class="col2"><label><input type="checkbox" name="loop[]" value="1" checked> Yes</label></div>
+		<div class="col3">
+			<button type="button" class="add-button">+</button>
+			<button type="button" class="del-button">-</button>
 		</div>
+	</template>
 
 </form>
 
