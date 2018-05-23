@@ -31,8 +31,7 @@ function getNextLocation() {
 					browser.pageAction.setPopup({tabId, popup: null});
 				}
 				else {
-					// fire pageAction.onClicked events
-					destinationLocations = [currentTabURL.replace(sourceLocation, destinationLocations[0])];
+					destinationLocations = [currentTabURL.replace(sourceLocation, destinationLocations[0]).replace(/(https?:\/\/)|(\/)+/g, "$1$2")];
 					browser.pageAction.setPopup({tabId, popup: ""});
 				}
 				return;

@@ -6,8 +6,8 @@
 	"homepage_url": "https://github.com/ethanliu/location-switcher-addon",
 
 	"icons": {
-		"48": "icons/icon-48.png",
-		"96": "icons/icon-96.png"
+		"48": "icons/light.svg",
+		"96": "icons/light.svg"
 	},
 
 	"applications": {

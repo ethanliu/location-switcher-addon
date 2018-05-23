@@ -1,24 +1,19 @@
-Location Switcher lets you to switching between sites by click the ☯ icon in address bar.
-
+Location Switcher let you switching between sites by click the ☯ icon in address bar.
 In most cases, you would like to switching between development and production sites.
 
-You may also create a one way route, allows switch to "http://example.com" from "http://localhost", but can't switch back from "http://example.com" to "http://localhost".
+For example:
 
-It also allows you to create your own loop. For example:
+http://dev.local <-> https://production.server  
+http://dev.local/demo <-> https://production.server/mockup/demo  
+http://dev.local <-> http://al.fa.server  
+http://dev.local <-> http://ed.fa.server  
+http://al.fa.server <-> http://ed.fa.server  
 
-http://dev3.local <-> http://localhost/demo
-http://localhost <-> http://example.com
-http://dev1.local -> http://localhost
-http://dev2.local -> http://localhost
+or custom routes:
 
-or create your custom loop
-
-http://project.local -> http://test1.server
-http://test1.server -> http://test2.server
-http://test2.server -> http://live.server
-http://live.server -> http://project.local
-
-Please notice that, the preference will not test any conflicts, and it follows the order to matching the URLs.
+http://dev1.server -> http://dev2.server  
+http://dev2.server -> http://dev3.server  
+http://dev3.server -> http://dev1.server  
 
 ## Download
 
