@@ -1,5 +1,5 @@
-Location Switcher let you switching between sites by click the ☯ icon in address bar.
-In most cases, you would like to switching between development and production sites.
+Location Switcher lets you switching between sites by click the ☯ icon in address bar.  
+In most cases, you would like to switch between development and production sites.  
 
 For example:
 

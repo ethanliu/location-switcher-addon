@@ -9,14 +9,17 @@ function saveOptions() {
 		let source = form.elements["source[]"][i].value.trim();
 		let target = form.elements["target[]"][i].value.trim();
 		let loop = form.elements["loop[]"][i].checked;
+		var icon = form.elements["icon[]"][i].value.trim();
 
 		if (source == "" || target == "") {
 			continue;
 		}
 
-		let item = [source, target, loop];
+		let item = [source, target, loop, icon];
 		data.push(item);
 	}
+
+	// console.log(data);
 
 	browser.storage.sync.set({
 		data: data,
@@ -66,7 +69,33 @@ function insertOptionAfter(node, data) {
 		box.querySelector("input[name='source[]']").value = data[0];
 		box.querySelector("input[name='target[]']").value = data[1];
 		box.querySelector("input[name='loop[]']").checked = data[2];
+
+		let icon = data[3] || "icons/light/default.svg";
+		box.querySelector("input[name='icon[]']").value = icon;
+		if (icon.startsWith("<?xml") || icon.startsWith("<svg")) {
+			box.querySelector(".icon").src = "data:image/svg+xml;base64," + b64EncodeUnicode(icon);
+		}
+		else {
+			box.querySelector(".icon").src = icon;
+		}
+		// box.querySelector(".icon").data = icon;
 	}
+
+	// if (darkThemeEnabled) {
+		// let img = box.querySelector(".icon");
+		// setTimeout(function() {
+		// 	// let svg = img.getSVGDocument();
+		// 	// console.log(svg);
+		// 	// svg.documentElement.style.fill = 'red';
+		// 	var svg = img.contentDocument.querySelector("svg");
+		// 	svg.style.fill = "red";
+		// 		// console.log(svg.documentElement);
+		// 	// svg.documentElement.setAttribute("fill", "red");
+		// 	if (svg.getElementById("original-icon")) {
+		// 		svg.getElementById("original-icon").setAttribute("fill", "red");
+		// 	}
+		// }, 500);
+	// }
 
 	if (node) {
 		node.parentNode.insertBefore(box, node.nextSibling);
@@ -76,6 +105,43 @@ function insertOptionAfter(node, data) {
 	}
 }
 
+function showIconModal(display) {
+	let modal = document.getElementById("modal");
+	modal.style.display = display ? "block" : "none";
+
+	if (targetImage.src.startsWith("data:image/svg+xml;base64,")) {
+		let value = b64DecodeUnicode(targetImage.src.replace("data:image/svg+xml;base64,", ""));
+		document.querySelector("[name='custom']").value = value;
+	}
+	// else if (!targetImage.src.startsWith("icons/") || !targetImage.src.startsWith("moz-extension://")) {
+	else if (targetImage.src.startsWith("http")) {
+		document.querySelector("[name='custom']").value = targetImage.src;
+	}
+	else {
+		document.querySelector("[name='custom']").value = "";
+	}
+
+}
+
+function b64EncodeUnicode(str) {
+	// first we use encodeURIComponent to get percent-encoded UTF-8,
+	// then we convert the percent encodings into raw bytes which
+	// can be fed into btoa.
+	return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+		function toSolidBytes(match, p1) {
+			return String.fromCharCode('0x' + p1);
+	}));
+}
+
+function b64DecodeUnicode(str) {
+	// Going backwards: from bytestream, to percent-encoding, to original string.
+	return decodeURIComponent(atob(str).split('').map(function(c) {
+		return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+	}).join(''));
+}
+
+// showIconModal(true);
+var targetImage, targetInput;
 document.addEventListener("DOMContentLoaded", restoreOptions);
 document.querySelector("form").addEventListener("submit", saveOptions);
 
@@ -88,6 +154,32 @@ document.querySelector("body").addEventListener("click", function(e) {
 			return;
 		}
 		e.target.parentNode.parentNode.remove();
+	}
+	else if (e.target.classList.contains("icon-button")) {
+		targetImage = e.target;
+		targetInput = e.target.nextElementSibling;
+		showIconModal(true);
+	}
+	else if (e.target.className == "icon") {
+		targetImage.src = e.target.attributes.src.value;
+		targetInput.value = e.target.attributes.src.value;
+		showIconModal(false);
+	}
+	else if (e.target.className == "custom-icon-button") {
+		//https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Working_with_files
+		var value = document.querySelector("[name='custom']").value;
+		if (value === "") {
+			value = "icons/light/default.svg";
+			targetImage.src = value;
+		}
+		else if (value.startsWith("<?xml") || value.startsWith("<svg")) {
+			targetImage.src = "data:image/svg+xml;base64," + b64EncodeUnicode(value);
+		}
+		else {
+			targetImage.src = value;
+		}
+		targetInput.value = value;
+		showIconModal(false);
 	}
 	// e.preventDefault();
 });

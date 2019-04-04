@@ -1,5 +1,5 @@
 var userDefinedLocations = [];
-var sourceLocation = "", destinationLocations = [];
+var sourceLocation = "", destinationLocations = [], locationIcons = [];
 var currentTabURL = "";
 var darkThemeEnabled = false, sortEnabled = false;
 
@@ -11,12 +11,25 @@ function getNextLocation() {
 		destinationLocations = [];
 		browser.pageAction.hide(tabId);
 
-		if (darkThemeEnabled) {
-			browser.pageAction.setIcon({
-				tabId: tabId,
-				path: "icons/dark.svg"
-			});
+		var icon = "";
+		for (var source in locationIcons) {
+			if (currentTabURL.startsWith(source)) {
+				icon = locationIcons[source];
+				break;
+			}
 		}
+
+		if (icon == "") {
+			icon = darkThemeEnabled ? "icons/dark/default.svg" : "icons/light/default.svg";
+		}
+		else {
+			icon = darkThemeEnabled ? icon.replace("icons/light/", "icons/dark/") : icon;
+		}
+
+		browser.pageAction.setIcon({
+			tabId: tabId,
+			path: icon
+		});
 
 		for (var source in userDefinedLocations) {
 			if (currentTabURL.startsWith(source)) {
@@ -53,9 +66,10 @@ browser.storage.sync.get("sortEnabled").then((res) => {
 browser.storage.sync.get("data").then((res) => {
 	if (res.data && res.data.length > 0) {
 		for (var i = 0; i < res.data.length; i++) {
-			var source = res.data[i][0];
-			var target = res.data[i][1];
-			var loop = res.data[i][2];
+			let source = res.data[i][0];
+			let target = res.data[i][1];
+			let loop = res.data[i][2];
+			let icon = res.data[i][3] || "icons/default.svg";
 
 			if (userDefinedLocations[source] === undefined) {
 				userDefinedLocations[source] = [];
@@ -67,6 +81,14 @@ browser.storage.sync.get("data").then((res) => {
 					userDefinedLocations[target] = [];
 				}
 				userDefinedLocations[target].push(source);
+
+				if (locationIcons[target] === undefined) {
+					locationIcons[target] = icon;
+				}
+			}
+
+			if (locationIcons[source] === undefined) {
+				locationIcons[source] = icon;
 			}
 		}
 		// console.log(userDefinedLocations);
@@ -95,6 +117,6 @@ browser.pageAction.onClicked.addListener(() => {
 
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	if (request.action && request.action == "getTabLocations") {
-		sendResponse({url: currentTabURL, source: sourceLocation, destinations: destinationLocations});
+		sendResponse({url: currentTabURL, source: sourceLocation, destinations: destinationLocations, icons: locationIcons});
 	}
 });

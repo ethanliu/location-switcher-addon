@@ -1,19 +1,63 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<style>
-	.row { width: 100%; margin-bottom: 1rem; clear: both;}
-	.col1 { width: 35%; display: inline-block; }
-	.col2 { width: 10%; display: inline-block; white-space: nowrap; }
-	.col3 { width: 15%; display: inline-block; white-space: nowrap; }
-	input[type="url"],input[type="text"] { width: 100%; }
-	</style>
+<meta charset="utf-8">
+<style>
+input[type="url"],input[type="text"] { width: 100%; }
+ul { margin: 0 0 0 2rem; padding: 0; }
+li { line-height: 1.5rem; }
+button {
+	background-color: #efefef;
+	font-size: 1.2rem;
+	padding: 0.4rem 1rem;
+	border: 0;
+}
+.row { width: 100%; margin-bottom: 1rem; clear: both;}
+.col1 { width: 33%; display: inline-block; }
+.col2 { width: 10%; display: inline-block; white-space: nowrap; }
+.col3 { width: 15%; display: inline-block; white-space: nowrap; }
+.col4 { width: 5%; display: inline-block; white-space: nowrap; }
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	bottom: 1rem;
+	width: 100%;
+	height: auto;
+	overflow: auto;
+	padding: 1rem 3rem;
+	border: 5px solid #999;
+	border-radius: 0.5rem;
+	background-color: #fff;
+	margin: 0;
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+.modal .item {
+	float: left;
+	padding: 1rem;
+	cursor: pointer;
+}
+.modal textarea, .modal input {
+	width: 100%;
+/*	height: 5rem;*/
+	margin: 1rem 0;
+}
+.icon {
+	width: 19px;
+	height: 19px;
+	vertical-align: middle;
+	cursor: pointer;
+}
+</style>
 </head>
 <body>
 
-<p>Uncheck "Loop" option to create one way route when you would like to create custom routes. This allows switching from "Source" to "Destination" but not backward.</p>
-<p>Multiple destinations of the same source will shows as popup.</p>
+<ul>
+	<li>Uncheck "Loop" option to create one way route when you would like to create custom routes. This allows switching from "Source" to "Destination" but not backward.</li>
+	<li>Multiple destinations of the same source will shows as popup.</li>
+	<li>SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></li>
+</ul>
 
 <p><br></p>
 <form name="form">
@@ -23,6 +67,7 @@
 	<br><br>
 
 	<div class="row">
+		<div class="col4">Icon</div>
 		<div class="col1">Source</div>
 		<div class="col1">Destination</div>
 		<div class="col2">Loop</div>
@@ -37,6 +82,11 @@
 	</div>
 
 	<template class="template">
+		<div class="col4">
+			<img src="icons/default.svg" class="icon icon-button">
+			<!-- <object class="icon icon-button" type="image/svg+xml" data="icons/default.svg"></object> -->
+			<input type="hidden" name="icon[]" value="">
+		</div>
 		<div class="col1"><input type="url" name="source[]" value="" placeholder="http://"></div>
 		<div class="col1"><input type="url" name="target[]" value="" placeholder="http://"></div>
 		<div class="col2"><label><input type="checkbox" name="loop[]" value="1" checked> Yes</label></div>
@@ -48,6 +98,34 @@
 
 </form>
 
+<div id="modal" class="modal">
+	<div class="item"><img class="icon" src="icons/light/default.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/batman.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/cheburashaka.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/digger.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/fairytale.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/flash.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/footprint.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/hammer.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/iron-man.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/mask.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/mummy.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/ninja-turtle.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/puzzle.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/roadblock.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/scream.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/sonic.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/spyro.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/stroller.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/super-mario.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/superman.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/support.svg"></div>
+	<div class="item"><img class="icon" src="icons/light/walter-white.svg"></div>
+	<br>
+	<!-- <div><textarea name="custom" placeholder="Custom SVG or icon URL"></textarea></div> -->
+	<div><input type="url" name="custom" placeholder="Custom Image URL, i.e. favicon" value=""></div>
+	<div><button type="button" class="custom-icon-button">Custom</button></div>
+</div>
 
 <script src="options.js"></script>
 
