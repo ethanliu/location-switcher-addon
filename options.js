@@ -5,21 +5,33 @@ function saveOptions() {
 	let darkThemeEnabled = form.elements["darktheme"].checked;
 	let sortEnabled = form.elements["sort"].checked;
 
-	for (var i = 0; i < total; i++) {
-		let source = form.elements["source[]"][i].value.trim();
-		let target = form.elements["target[]"][i].value.trim();
-		let loop = form.elements["loop[]"][i].checked;
-		var icon = form.elements["icon[]"][i].value.trim();
+	if (total === 1) {
+		let source = form.elements["source[]"].value.trim();
+		let target = form.elements["target[]"].value.trim();
+		let loop = form.elements["loop[]"].checked;
+		var icon = form.elements["icon[]"].value.trim();
 
-		if (source == "" || target == "") {
-			continue;
+		if (source !== "" && target !== "") {
+			let item = [source, target, loop, icon];
+			data.push(item);
 		}
-
-		let item = [source, target, loop, icon];
-		data.push(item);
 	}
+	else {
+		for (var i = 0; i < total; i++) {
+			let source = form.elements["source[]"][i].value.trim();
+			let target = form.elements["target[]"][i].value.trim();
+			let loop = form.elements["loop[]"][i].checked;
+			var icon = form.elements["icon[]"][i].value.trim();
 
-	// console.log(data);
+			if (source == "" || target == "") {
+				alert("continue");
+				continue;
+			}
+
+			let item = [source, target, loop, icon];
+			data.push(item);
+		}
+	}
 
 	browser.storage.sync.set({
 		data: data,
@@ -81,22 +93,6 @@ function insertOptionAfter(node, data) {
 		// box.querySelector(".icon").data = icon;
 	}
 
-	// if (darkThemeEnabled) {
-		// let img = box.querySelector(".icon");
-		// setTimeout(function() {
-		// 	// let svg = img.getSVGDocument();
-		// 	// console.log(svg);
-		// 	// svg.documentElement.style.fill = 'red';
-		// 	var svg = img.contentDocument.querySelector("svg");
-		// 	svg.style.fill = "red";
-		// 		// console.log(svg.documentElement);
-		// 	// svg.documentElement.setAttribute("fill", "red");
-		// 	if (svg.getElementById("original-icon")) {
-		// 		svg.getElementById("original-icon").setAttribute("fill", "red");
-		// 	}
-		// }, 500);
-	// }
-
 	if (node) {
 		node.parentNode.insertBefore(box, node.nextSibling);
 	}
@@ -150,9 +146,9 @@ document.querySelector("body").addEventListener("click", function(e) {
 		insertOptionAfter(e.target.parentNode.parentNode);
 	}
 	else if (e.target.className == "del-button") {
-		if (document.querySelectorAll(".content .row").length <= 1) {
-			return;
-		}
+		// if (document.querySelectorAll(".content .row").length <= 1) {
+		// 	return;
+		// }
 		e.target.parentNode.parentNode.remove();
 	}
 	else if (e.target.classList.contains("icon-button")) {
