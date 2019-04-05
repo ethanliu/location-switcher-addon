@@ -69,7 +69,7 @@ browser.storage.sync.get("data").then((res) => {
 			let source = res.data[i][0];
 			let target = res.data[i][1];
 			let loop = res.data[i][2];
-			let icon = res.data[i][3] || "icons/default.svg";
+			let icon = res.data[i][3] || "icons/light/default.svg";
 
 			if (userDefinedLocations[source] === undefined) {
 				userDefinedLocations[source] = [];
