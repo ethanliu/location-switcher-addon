@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <style>
+body {
+	padding: 2rem;
+}
 input[type="url"],input[type="text"] { width: 100%; }
 ul { margin: 0 0 0 2rem; padding: 0; }
 li { line-height: 1.5rem; }
@@ -13,7 +16,9 @@ button {
 	border: 0;
 }
 .row { width: 100%; margin-bottom: 1rem; clear: both;}
-.col1 { width: 33%; display: inline-block; }
+.row div { padding-right: 1rem; }
+.row div:last-child { padding-right: 0; }
+.col1 { width: 30%; display: inline-block; }
 .col2 { width: 10%; display: inline-block; white-space: nowrap; }
 .col3 { width: 15%; display: inline-block; white-space: nowrap; }
 .col4 { width: 5%; display: inline-block; white-space: nowrap; }
@@ -23,7 +28,7 @@ button {
 	z-index: 1;
 	left: 0;
 	bottom: 1.5rem;
-	width: 96%;
+	width: auto;
 	height: auto;
 	overflow: auto;
 	padding: 1rem 2rem;
@@ -78,6 +83,7 @@ button {
 	</div>
 
 	<div class="row">
+		<br>
 		<button type="submit">Save</button>
 	</div>
 

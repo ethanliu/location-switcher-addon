@@ -29,11 +29,33 @@ function handleError(error) {
 	alert(error);
 }
 
-browser.runtime.sendMessage({
-	action: 'getTabLocations'
-}).then(handleResponse, handleError);
+if (window.browser) {
+	browser.runtime.sendMessage({
+		"action": "getTabLocations"
+	}).then(handleResponse, handleError);
+}
+else {
+	chrome.runtime.sendMessage({"action": "getTabLocations"}, function(response) {
+		handleResponse(response);
+	});
+}
+
 
 document.addEventListener("click", (e) => {
+	if (window.browser) {
+		browser.tabs.update({url: e.target.href}).then({
+			//hide
+		}, handleError);
+	}
+	else {
+		chrome.tabs.update({url: e.target.href}, function() {
+			// fired bug: chrome.pageAction.hide()
+			// chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+			// 	var tabId = tabs[0].id;
+			// 	chrome.pageAction.hide(tabId);
+			// });
+		});
+	}
 	// if (e.target.href.startsWith("file://")) {
 	// 	console.log(e.target.href);
 	// 	var result = browser.tabs.executeScript({
@@ -42,8 +64,8 @@ document.addEventListener("click", (e) => {
 	// 	result.then({}, handleError);
 	// }
 	// else {
-		var result = browser.tabs.update({url: e.target.href});
-		result.then({}, handleError);
+		// var result = browser.tabs.update({url: e.target.href});
+		// result.then({}, handleError);
 	// }
 	e.preventDefault();
 });

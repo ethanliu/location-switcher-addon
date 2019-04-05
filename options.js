@@ -33,42 +33,61 @@ function saveOptions() {
 		}
 	}
 
-	browser.storage.sync.set({
-		data: data,
-		darkThemeEnabled: darkThemeEnabled,
-		sortEnabled: sortEnabled
-	});
+	if (window.browser) {
+		browser.storage.sync.set({
+			"data": data,
+			"darkThemeEnabled": darkThemeEnabled,
+			"sortEnabled": sortEnabled
+		});
+		browser.runtime.reload();
+	}
+	else {
+		chrome.storage.sync.set({
+			"data": data,
+			"darkThemeEnabled": darkThemeEnabled,
+			"sortEnabled": sortEnabled
+		}, function() {
+		});
+		chrome.runtime.reload();
+	}
 
-	browser.runtime.reload();
 }
 
 function handleError(error) {
-	console.log(error);
+	// console.log(error);
+	alert(error);
 }
 
 function restoreOptions() {
-	browser.storage.sync.get("data").then((res) => {
-		if (res.data && res.data.length > 0) {
-			for (var i = 0; i < res.data.length; i++) {
-				insertOptionAfter(null, res.data[i]);
+	if (window.browser) {
+		browser.storage.sync.get(null).then((res) => {
+			if (res.data && res.data.length > 0) {
+				for (var i = 0; i < res.data.length; i++) {
+					insertOptionAfter(null, res.data[i]);
+				}
 			}
-		}
-		else {
-			insertOptionAfter();
-		}
-	}, handleError);
-
-	browser.storage.sync.get("darkThemeEnabled").then((res) => {
-		if (res.darkThemeEnabled) {
-			document.forms["form"].elements["darktheme"].checked = true;
-		}
-	}, handleError);
-
-	browser.storage.sync.get("sortEnabled").then((res) => {
-		if (res.sortEnabled) {
-			document.forms["form"].elements["sort"].checked = true;
-		}
-	}, handleError);
+			else {
+				insertOptionAfter();
+			}
+			document.forms["form"].elements["darktheme"].checked = res.darkThemeEnabled || false;
+			document.forms["form"].elements["sort"].checked = res.sortEnabled || false;
+		}, handleError);
+	}
+	else {
+		// chrome
+		chrome.storage.sync.get(null, function(res) {
+			if (res.data && res.data.length > 0) {
+				for (var i = 0; i < res.data.length; i++) {
+					insertOptionAfter(null, res.data[i]);
+				}
+			}
+			else {
+				insertOptionAfter();
+			}
+			document.forms["form"].elements["darktheme"].checked = res.darkThemeEnabled || false;
+			document.forms["form"].elements["sort"].checked = res.sortEnabled || false;
+		});
+	}
 }
 
 function insertOptionAfter(node, data) {
