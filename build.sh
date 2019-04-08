@@ -2,15 +2,13 @@
 
 function usage() {
 cat << EOF
+Usage:
+	`basename $0` target
 
-NAME
-	`basename $0` -- build script
-
-SYNOPSIS
-	`basename $0` options
-
-OPTIONS:
-	-h	Usage description
+Targets:
+	firefox		Build Firefox extension
+	chrome		Build Chrome extension
+	icon		Build images for Chrome extension
 
 EOF
 exit 0
@@ -44,12 +42,12 @@ function buildFirefox() {
 }
 
 function buildChrome() {
-	echo "description"
+	echo "Build extension for Chrome"
 	# exit 1
 }
 
 function buildImages() {
-	echo "description"
+	echo "Build images for Chrome"
 	# exit 1
 }
 
