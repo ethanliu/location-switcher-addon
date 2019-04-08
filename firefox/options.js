@@ -33,24 +33,12 @@ function saveOptions() {
 		}
 	}
 
-	if (window.browser) {
-		browser.storage.sync.set({
-			"data": data,
-			"darkThemeEnabled": darkThemeEnabled,
-			"sortEnabled": sortEnabled
-		});
-		browser.runtime.reload();
-	}
-	else {
-		chrome.storage.sync.set({
-			"data": data,
-			"darkThemeEnabled": darkThemeEnabled,
-			"sortEnabled": sortEnabled
-		}, function() {
-		});
-		chrome.runtime.reload();
-	}
-
+	browser.storage.sync.set({
+		"data": data,
+		"darkThemeEnabled": darkThemeEnabled,
+		"sortEnabled": sortEnabled
+	});
+	browser.runtime.reload();
 }
 
 function handleError(error) {
@@ -59,35 +47,18 @@ function handleError(error) {
 }
 
 function restoreOptions() {
-	if (window.browser) {
-		browser.storage.sync.get(null).then((res) => {
-			if (res.data && res.data.length > 0) {
-				for (var i = 0; i < res.data.length; i++) {
-					insertOptionAfter(null, res.data[i]);
-				}
+	browser.storage.sync.get(null).then((res) => {
+		if (res.data && res.data.length > 0) {
+			for (var i = 0; i < res.data.length; i++) {
+				insertOptionAfter(null, res.data[i]);
 			}
-			else {
-				insertOptionAfter();
-			}
-			document.forms["form"].elements["darktheme"].checked = res.darkThemeEnabled || false;
-			document.forms["form"].elements["sort"].checked = res.sortEnabled || false;
-		}, handleError);
-	}
-	else {
-		// chrome
-		chrome.storage.sync.get(null, function(res) {
-			if (res.data && res.data.length > 0) {
-				for (var i = 0; i < res.data.length; i++) {
-					insertOptionAfter(null, res.data[i]);
-				}
-			}
-			else {
-				insertOptionAfter();
-			}
-			document.forms["form"].elements["darktheme"].checked = res.darkThemeEnabled || false;
-			document.forms["form"].elements["sort"].checked = res.sortEnabled || false;
-		});
-	}
+		}
+		else {
+			insertOptionAfter();
+		}
+		document.forms["form"].elements["darktheme"].checked = res.darkThemeEnabled || false;
+		document.forms["form"].elements["sort"].checked = res.sortEnabled || false;
+	}, handleError);
 }
 
 function insertOptionAfter(node, data) {
