@@ -10,18 +10,11 @@
 		"96": "icons/light/default.svg"
 	},
 
-	"applications": {
-		"gecko": {
-			"id": "location-switcher-addon@creativecrap.com",
-			"strict_min_version": "42.0"
-		}
-	},
-
 	"permissions": [
 		"tabs",
 		"activeTab",
 		"storage",
-		"theme"
+		"webNavigation"
 	],
 
 	"page_action": {
@@ -33,8 +26,8 @@
 
 	"options_ui": {
 		"page": "options.html",
-		"browser_style": true,
-		"open_in_tab": false
+		"chrome_style": true,
+		"open_in_tab": true
 	},
 
 	"background": {

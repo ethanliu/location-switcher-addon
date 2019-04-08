@@ -93,11 +93,19 @@ chrome.storage.sync.get(null, function(res) {
 });
 
 
+// Not all navigating tabs correspond to actual tabs in Chrome's UI, e.g., a tab that is being pre-rendered. Such tabs are not accessible via the tabs API nor can you request information about them via webNavigation.getFrame or webNavigation.getAllFrames. Once such a tab is swapped in, an onTabReplaced event is fired and they become accessible via these APIs.
+
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
 	if (changeInfo.status && changeInfo.url) {
 		getNextLocation();
 	}
 });
+
+// chrome.webNavigation.onTabReplaced.addListener(function (details) {
+// 	chrome.tabs.get(details.tabId, function(tab) {
+// 		console.log(tab.url);
+// 	});
+// });
 
 chrome.tabs.onActivated.addListener(function(tab) {
 	getNextLocation();
