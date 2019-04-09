@@ -61,11 +61,14 @@ function restoreOptions() {
 	}, handleError);
 }
 
+function createOption(data) {
+}
+
 function insertOptionAfter(node, data) {
-	var template = document.querySelector(".template");
+	const template = Sanitizer.createSafeHTML(document.querySelector(".template").innerHTML);
 	var box = document.createElement('div');
 	box.className = "row";
-	box.insertAdjacentHTML('beforeend', template.innerHTML);
+	box.insertAdjacentHTML('beforeend', Sanitizer.unwrapSafeHTML(template));
 
 	if (data) {
 		box.querySelector("input[name='source[]']").value = data[0];
@@ -80,7 +83,7 @@ function insertOptionAfter(node, data) {
 		else {
 			box.querySelector(".icon").src = icon;
 		}
-		// box.querySelector(".icon").data = icon;
+		box.querySelector(".icon").data = icon;
 	}
 
 	if (node) {

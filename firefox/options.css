@@ -1,0 +1,51 @@
+body {
+	padding: 2rem;
+}
+input[type="url"],input[type="text"] { width: 100%; }
+ul { margin: 0 0 0 2rem; padding: 0; }
+li { line-height: 1.5rem; }
+button {
+	background-color: #efefef;
+	font-size: 1.2rem;
+	padding: 0.4rem 1rem;
+	border: 0;
+}
+.row { width: 100%; margin-bottom: 1rem; clear: both;}
+.row div { padding-right: 1rem; }
+.row div:last-child { padding-right: 0; }
+.col1 { width: 30%; display: inline-block; }
+.col2 { width: 10%; display: inline-block; white-space: nowrap; }
+.col3 { width: 15%; display: inline-block; white-space: nowrap; }
+.col4 { width: 5%; display: inline-block; white-space: nowrap; }
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	bottom: 1.5rem;
+	width: auto;
+	height: auto;
+	overflow: auto;
+	padding: 1rem 2rem;
+	border: 5px solid #999;
+	border-radius: 0.5rem;
+	background-color: #fff;
+	margin: 0 2%;
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+.modal .item {
+	float: left;
+	padding: 1rem;
+	cursor: pointer;
+}
+.modal textarea, .modal input {
+	width: 100%;
+/*	height: 5rem;*/
+	margin: 1rem 0;
+}
+.icon {
+	width: 19px;
+	height: 19px;
+	vertical-align: middle;
+	cursor: pointer;
+}
