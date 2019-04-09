@@ -4,7 +4,11 @@ function handleResponse(response) {
 	let source = response.source;
 	let desitinations = response.destinations;
 
+	var ul = document.createElement("ul");
+
 	for (var i = 0, loop = desitinations.length; i < loop; i++) {
+		var li = document.createElement("li");
+
 		var href = document.createElement("a");
 		href.setAttribute("href", url.replace(source, desitinations[i]).replace(/(https?:\/\/)|(\/)+/g, "$1$2"));
 		href.appendChild(document.createTextNode(desitinations[i]));
@@ -18,11 +22,17 @@ function handleResponse(response) {
 			else {
 				img.src = "../" + icon;
 			}
-			href.prepend(img);
+			// href.prepend(img);
+			li.appendChild(img)
 		}
 
-		document.body.appendChild(href);
+		li.appendChild(href)
+		ul.appendChild(li)
+
+		// document.body.appendChild(href);
 	}
+
+	document.body.appendChild(ul);
 }
 
 function handleError(error) {
@@ -34,9 +44,18 @@ browser.runtime.sendMessage({
 }).then(handleResponse, handleError);
 
 document.addEventListener("click", (e) => {
-	browser.tabs.update({url: e.target.href}).then({
-		//hide
-	}, handleError);
+	let cmd = e.getModifierState("Meta");
+	if (cmd) {
+		browser.tabs.create({
+			url: e.target.href,
+			active: true
+		}).then({}, handleError);
+	}
+	else {
+		browser.tabs.update({url: e.target.href}).then({
+			//hide
+		}, handleError);
+	}
 
 	// if (e.target.href.startsWith("file://")) {
 	// 	console.log(e.target.href);

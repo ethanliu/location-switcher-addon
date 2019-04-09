@@ -54,43 +54,60 @@ function getNextLocation() {
 	});
 }
 
+// async function getTheme() {
+// 	const theme = await browser.theme.getCurrent();
+// 	console.log(theme);
+// 	if (theme.colors) {
+// 		console.log(theme.colors);
+// 		console.log(theme.colors.accentcolor);
+// 		console.log(theme.colors.toolbar);
+// 	}
+// }
+
+function getUserPreference() {
+
+	// getTheme();
+
+	browser.storage.sync.get(null).then((res) => {
+		if (res.data && res.data.length > 0) {
+			for (var i = 0; i < res.data.length; i++) {
+				let source = res.data[i][0];
+				let target = res.data[i][1];
+				let loop = res.data[i][2];
+				let icon = res.data[i][3] || "icons/light/default.svg";
+
+				if (userDefinedLocations[source] === undefined) {
+					userDefinedLocations[source] = [];
+				}
+				userDefinedLocations[source].push(target);
+
+				if (loop) {
+					if (userDefinedLocations[target] === undefined) {
+						userDefinedLocations[target] = [];
+					}
+					userDefinedLocations[target].push(source);
+
+					if (locationIcons[target] === undefined) {
+						locationIcons[target] = icon;
+					}
+				}
+
+				if (locationIcons[source] === undefined) {
+					locationIcons[source] = icon;
+				}
+			}
+			// console.log(userDefinedLocations);
+			// console.log("ready");
+		}
+
+		darkThemeEnabled = res.darkThemeEnabled || false;
+		sortEnabled = res.sortEnabled || false;
+	});
+}
+
 // preferences
 
-browser.storage.sync.get(null).then((res) => {
-	if (res.data && res.data.length > 0) {
-		for (var i = 0; i < res.data.length; i++) {
-			let source = res.data[i][0];
-			let target = res.data[i][1];
-			let loop = res.data[i][2];
-			let icon = res.data[i][3] || "icons/light/default.svg";
-
-			if (userDefinedLocations[source] === undefined) {
-				userDefinedLocations[source] = [];
-			}
-			userDefinedLocations[source].push(target);
-
-			if (loop) {
-				if (userDefinedLocations[target] === undefined) {
-					userDefinedLocations[target] = [];
-				}
-				userDefinedLocations[target].push(source);
-
-				if (locationIcons[target] === undefined) {
-					locationIcons[target] = icon;
-				}
-			}
-
-			if (locationIcons[source] === undefined) {
-				locationIcons[source] = icon;
-			}
-		}
-		// console.log(userDefinedLocations);
-		// console.log("ready");
-	}
-
-	darkThemeEnabled = res.darkThemeEnabled || false;
-	sortEnabled = res.sortEnabled || false;
-});
+getUserPreference();
 
 browser.tabs.onUpdated.addListener((tabId, changeInfo, tabInfo) => {
 	// console.log("onUpdated");
