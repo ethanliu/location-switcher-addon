@@ -2,10 +2,11 @@
 
 function usage() {
 cat << EOF
-Usage:
-	`basename $0` target
+
+Usage: `basename $0` <target>
 
 Targets:
+
 	firefox		Build Firefox extension
 	chrome		Build Chrome extension
 	icon		Build images for Chrome extension
@@ -30,6 +31,14 @@ function buildFirefox() {
 		rm "${file}"
 		mv "${file}.min" "${file}"
 	done
+
+	for file in `find . -type f -name "*.css"`; do
+		echo "Minify: ${file}"
+		/usr/bin/env cleancss --skip-rebase --inline none -o "${file}.min" "${file}"
+		rm "${file}"
+		mv "${file}.min" "${file}"
+	done
+
 
 	zipfile="../dist/location-switcher-firefox-addon-${version}.zip"
 	mkdir -p ../dist
