@@ -12,8 +12,9 @@ ul {
 
 li {
 	margin: 0;
-	padding: 0.5rem 1rem;
+	padding: 0;
 	white-space: nowrap;
+	display: flex;
 }
 
 li:hover {
@@ -21,35 +22,33 @@ li:hover {
 }
 
 a {
-/*	display: block;*/
-/*	padding: 0.5rem 1rem;*/
+	padding: 0.5rem 1rem 0.5rem 0;
+	width: 100%;
 	text-decoration: none;
 	color: #666;
 }
 
-/*a:hover {
-	background-color: #eee;
-}
-*/
 img {
 	width: 19px;
 	height: 19px;
+/*	object-fill: fill;*/
 	vertical-align: middle;
-/*	padding: 0 5px 0 0;*/
-	margin: 0 8px 0 0;
+	margin: auto 0.5rem auto 1rem;
 }
 
-/*body.dark {
+body.dark {
 	background-color: #333;
 	color: #666;
 }
-path, g { fill: red; }
+
 .dark a {
 	color: #aaa;
 }
-.dark a:hover {
-	background-color: #666;
+
+.dark li:hover {
+	background-color: #222;
 }
-.dark img {
+
+.dark li:hover img {
 	fill: #fff !important;
-}*/
+}

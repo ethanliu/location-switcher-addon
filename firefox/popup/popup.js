@@ -1,5 +1,6 @@
 function handleResponse(response) {
 	document.body.innerHTML = "";
+	document.body.className = response.dark ? "dark" : "";
 	let url = response.url;
 	let source = response.source;
 	let desitinations = response.destinations;
@@ -44,8 +45,14 @@ browser.runtime.sendMessage({
 }).then(handleResponse, handleError);
 
 document.addEventListener("click", (e) => {
+	e.preventDefault();
 	let cmd = e.getModifierState("Meta");
-	if (cmd) {
+	let ctrl = e.getModifierState("Control");
+
+	if (ctrl) {
+		// return false;
+	}
+	else if (cmd) {
 		browser.tabs.create({
 			url: e.target.href,
 			active: true
@@ -68,6 +75,6 @@ document.addEventListener("click", (e) => {
 		// var result = browser.tabs.update({url: e.target.href});
 		// result.then({}, handleError);
 	// }
-	e.preventDefault();
+	// e.preventDefault();
 });
 

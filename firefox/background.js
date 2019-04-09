@@ -130,6 +130,12 @@ browser.pageAction.onClicked.addListener(() => {
 
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	if (request.action && request.action == "getTabLocations") {
-		sendResponse({url: currentTabURL, source: sourceLocation, destinations: destinationLocations, icons: locationIcons});
+		sendResponse({
+			url: currentTabURL,
+			source: sourceLocation,
+			destinations: destinationLocations,
+			icons: locationIcons,
+			dark: darkThemeEnabled
+		});
 	}
 });
