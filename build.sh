@@ -39,15 +39,16 @@ function buildFirefox() {
 		mv "${file}.min" "${file}"
 	done
 
-
-	zipfile="../dist/location-switcher-firefox-addon-${version}.zip"
-	mkdir -p ../dist
-	zip -r -FS -q "${zipfile}" * -x "*.DS_Store"
+	# echo "Package: ${zipfile}"
+	# zipfile="../dist/location-switcher-firefox-addon-${version}.zip"
+	# mkdir -p ../dist
+	# zip -r -FS -q "${zipfile}" * -x "*.DS_Store"
 
 	cd ..
-	rm -fr $tmp
 
-	echo "Package: ${zipfile}"
+	/usr/bin/env web-ext build -s tmp -a dist
+
+	rm -fr $tmp
 }
 
 function buildChrome() {
