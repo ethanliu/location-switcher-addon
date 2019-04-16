@@ -1,22 +1,41 @@
 body {
-	padding: 2rem;
+	padding: 0;
 }
-input[type="url"],input[type="text"] { width: 100%; }
-ul { margin: 0 0 0 2rem; padding: 0; }
-li { line-height: 1.5rem; }
+
+input[type="url"],input[type="text"] {
+	width: 100%;
+}
+
+ul {
+	 margin: 0 0 0 2rem;
+	 padding: 0;
+}
+
+li {
+	 line-height: 1.5rem;
+}
+
 button {
 	background-color: #efefef;
 	font-size: 1.2rem;
 	padding: 0.4rem 1rem;
 	border: 0;
 }
-.row { width: 100%; margin-bottom: 1rem; clear: both;}
-.row div { padding-right: 1rem; }
-.row div:last-child { padding-right: 0; }
-.col1 { width: 30%; display: inline-block; }
-.col2 { width: 10%; display: inline-block; white-space: nowrap; }
-.col3 { width: 15%; display: inline-block; white-space: nowrap; }
-.col4 { width: 5%; display: inline-block; white-space: nowrap; }
+
+.row {
+	display: grid;
+	grid-template-rows: auto;
+	grid-template-columns: 1fr 8fr 8fr 2fr 1fr 1fr;
+	grid-template-areas: "header header header header . ." "icon url url checkbox button button";
+	grid-gap: 0.5rem 1rem;
+	justify-content: stretch;
+	align-content: space-around;
+}
+
+.row button {
+	padding: 0.2rem 0.5rem;
+}
+
 .modal {
 	display: none;
 	position: fixed;

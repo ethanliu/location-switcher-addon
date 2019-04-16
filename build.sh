@@ -46,7 +46,7 @@ function buildFirefox() {
 
 	cd ..
 
-	/usr/bin/env web-ext build -s tmp -a dist
+	/usr/bin/env web-ext build -s $tmp -a dist
 
 	rm -fr $tmp
 }

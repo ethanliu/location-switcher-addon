@@ -9,46 +9,42 @@
 <ul>
 	<li>Uncheck "Loop" option to create a one-way route when you would like to create custom routes. This allows switching from "Source" to "Destination" but not backward.</li>
 	<li>Multiple destinations of the same source will show as a popup.</li>
-	<li>Cmd-Click to open in new tab, Shift-Click to bring up the context menu from the popup.</li>
 	<li>SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></li>
 </ul>
 
 <p><br></p>
 <form name="form">
 
-	<div class="row"><label><input type="checkbox" name="darktheme" value="1"> Dark theme</label></div>
-	<div class="row"><label><input type="checkbox" name="sort" value="1"> Sort destinations in popup</label></div>
+	<div><label><input type="checkbox" name="darktheme" value="1"> Dark theme</label></div>
+	<div><label><input type="checkbox" name="sort" value="1"> Sort destinations in popup</label></div>
 	<br><br>
 
-	<div class="row">
-		<div class="col4">Icon</div>
-		<div class="col1">Source</div>
-		<div class="col1">Destination</div>
-		<div class="col2">Loop</div>
-		<div class="col3"></div>
-	</div>
 
+	<div class="row">
+		<div>Icon</div>
+		<div>Source</div>
+		<div>Destination</div>
+		<div>Loop</div>
+		<div></div>
+	</div>
 	<div class="content">
 	</div>
 
-	<div class="row">
-		<br>
-		<button type="submit">Save</button>
-	</div>
+
+	<br>
+	<button type="submit">Save</button>
 
 	<template class="template">
-		<div class="col4">
+		<div>
 			<img src="icons/light/default.svg" class="icon icon-button">
 			<!-- <object class="icon icon-button" type="image/svg+xml" data="icons/default.svg"></object> -->
 			<input type="hidden" name="icon[]" value="">
 		</div>
-		<div class="col1"><input type="url" name="source[]" value="" placeholder="http://"></div>
-		<div class="col1"><input type="url" name="target[]" value="" placeholder="http://"></div>
-		<div class="col2"><label><input type="checkbox" name="loop[]" value="1" checked> Yes</label></div>
-		<div class="col3">
-			<button type="button" class="add-button">+</button>
-			<button type="button" class="del-button">-</button>
-		</div>
+		<div><input type="url" name="source[]" value="" placeholder="http://"></div>
+		<div><input type="url" name="target[]" value="" placeholder="http://"></div>
+		<div><label><input type="checkbox" name="loop[]" value="1" checked> Yes</label></div>
+		<div><button type="button" class="add-button">+</button></div>
+		<div><button type="button" class="del-button">-</button></div>
 	</template>
 
 </form>

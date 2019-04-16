@@ -40,23 +40,51 @@ function handleError(error) {
 	alert(error);
 }
 
+
+var isMacOS = (navigator.platform.toLowerCase().startsWith("mac")) ? true : false;
+console.log(navigator.platform);
+console.log(isMacOS);
+
 browser.runtime.sendMessage({
 	"action": "getTabLocations"
 }).then(handleResponse, handleError);
 
-document.addEventListener("click", (e) => {
-	e.preventDefault();
-	let cmd = e.getModifierState("Meta");
-	let ctrl = e.getModifierState("Control");
 
-	if (ctrl) {
-		// return false;
-	}
-	else if (cmd) {
-		browser.tabs.create({
-			url: e.target.href,
-			active: true
-		}).then({}, handleError);
+// confuse behavior with click
+
+document.addEventListener('contextmenu', function(e) {
+	e.preventDefault();
+	return false;
+});
+
+document.addEventListener("click", function(e) {
+	e.preventDefault();
+	let newTab = (isMacOS) ? e.getModifierState("Meta") : e.getModifierState("Control");
+
+	if (newTab) {
+		browser.tabs.query({currentWindow: true}).then((tabs) => {
+			var id = false;
+			for (index in tabs) {
+				if (tabs[index].url == e.target.href) {
+					id = tabs[index].id
+					break;
+				}
+			}
+			if (!id) {
+				browser.tabs.create({
+					url: e.target.href,
+					active: true
+				}).then({}, handleError);
+			}
+			else {
+				browser.tabs.update(id, {
+					active: true,
+					url: e.target.href
+				}).then({
+					//hide
+				}, handleError);
+			}
+		});
 	}
 	else {
 		browser.tabs.update({url: e.target.href}).then({

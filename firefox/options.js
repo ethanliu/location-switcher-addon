@@ -24,7 +24,6 @@ function saveOptions() {
 			var icon = form.elements["icon[]"][i].value.trim();
 
 			if (source == "" || target == "") {
-				alert("continue");
 				continue;
 			}
 
@@ -42,8 +41,7 @@ function saveOptions() {
 }
 
 function handleError(error) {
-	// console.log(error);
-	alert(error);
+	console.log(error);
 }
 
 function restoreOptions() {
