@@ -8,23 +8,25 @@
 
 <ul>
 	<li>Uncheck "Loop" option to create a one-way route when you would like to create custom routes. This allows switching from "Source" to "Destination" but not backward.</li>
-	<li>Multiple destinations of the same source will show as a popup.</li>
-	<li>SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></li>
+	<!-- <li>Multiple destinations of the same source will show as a popup.</li> -->
+	<!-- <li>SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></li> -->
 </ul>
 
 <p><br></p>
 <form name="form">
 
-	<div><label><input type="checkbox" name="darktheme" value="1"> Dark theme</label></div>
+	<div><label><input type="checkbox" name="dark_theme" value="1"> Dark theme</label></div>
+	<div><label><input type="checkbox" name="force_popup" value="1"> Show popup even when there is only one destination</label></div>
 	<div><label><input type="checkbox" name="sort" value="1"> Sort destinations in popup</label></div>
 	<br><br>
 
 
-	<div class="row">
+	<div class="row header">
 		<div>Icon</div>
 		<div>Source</div>
 		<div>Destination</div>
 		<div>Loop</div>
+		<div>Disabled</div>
 		<div></div>
 	</div>
 	<div class="content">
@@ -42,9 +44,9 @@
 		</div>
 		<div><input type="url" name="source[]" value="" placeholder="http://"></div>
 		<div><input type="url" name="target[]" value="" placeholder="http://"></div>
-		<div><label><input type="checkbox" name="loop[]" value="1" checked> Yes</label></div>
-		<div><button type="button" class="add-button">+</button></div>
-		<div><button type="button" class="del-button">-</button></div>
+		<div><label><input type="checkbox" name="loop[]" value="1" checked></label></div>
+		<div><label><input type="checkbox" name="disabled[]" value="1"></label></div>
+		<div><button type="button" class="add-button">+</button><button type="button" class="del-button">-</button></div>
 	</template>
 
 </form>
@@ -104,6 +106,7 @@
 	<br>
 	<!-- <div><textarea name="custom" placeholder="Custom SVG or icon URL"></textarea></div> -->
 	<div><input type="url" name="custom" placeholder="Custom Image URL, i.e. favicon" value=""></div>
+	<div class="icons8">SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></div>
 	<div><button type="button" class="custom-icon-button">Custom</button></div>
 </div>
 

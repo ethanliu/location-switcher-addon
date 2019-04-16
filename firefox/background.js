@@ -1,7 +1,8 @@
+
+var currentTabURL = "";
 var userDefinedLocations = [];
 var sourceLocation = "", destinationLocations = [], locationIcons = [];
-var currentTabURL = "";
-var darkThemeEnabled = false, sortEnabled = false;
+var darkThemeEnabled = false, sortEnabled = false, forcePopupEnabled = false;
 
 function getNextLocation() {
 	browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
@@ -37,7 +38,7 @@ function getNextLocation() {
 				sourceLocation = source;
 				destinationLocations = userDefinedLocations[source];
 
-				if (destinationLocations.length > 1) {
+				if (destinationLocations.length > 1 || forcePopupEnabled) {
 					if (sortEnabled) {
 						destinationLocations.sort();
 					}
@@ -66,14 +67,18 @@ function getNextLocation() {
 
 function getUserPreference() {
 
-	// getTheme();
-
 	browser.storage.sync.get(null).then((res) => {
-		if (res.data && res.data.length > 0) {
-			for (var i = 0; i < res.data.length; i++) {
+		if (res.data) {
+			let total = res.data.length || 0;
+			for (var i = 0; i < total; i++) {
+				let disabled = res.data[i][4] || false;
+				if (disabled) {
+					continue;
+				}
+
 				let source = res.data[i][0];
 				let target = res.data[i][1];
-				let loop = res.data[i][2];
+				let loop = res.data[i][2] || true;
 				let icon = res.data[i][3] || "icons/light/default.svg";
 
 				if (userDefinedLocations[source] === undefined) {
@@ -102,6 +107,7 @@ function getUserPreference() {
 
 		darkThemeEnabled = res.darkThemeEnabled || false;
 		sortEnabled = res.sortEnabled || false;
+		forcePopupEnabled = res.forcePopupEnabled || false;
 	});
 }
 
