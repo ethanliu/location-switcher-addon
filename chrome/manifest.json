@@ -6,8 +6,9 @@
 	"homepage_url": "https://github.com/ethanliu/location-switcher-addon",
 
 	"icons": {
-		"48": "icons/light/default.svg",
-		"96": "icons/light/default.svg"
+		"16": "icons/default-16.png",
+		"48": "icons/default-48.png",
+		"128": "icons/default-128.png"
 	},
 
 	"permissions": [
@@ -18,9 +19,7 @@
 
 	"browser_action": {
 		"default_icon": {
-			"16": "icons/light/default.svg",
-			"24": "icons/light/default.svg",
-			"32": "icons/light/default.svg"
+			"32": "icons/light/default.png"
 		},
 		"default_title": "Next location",
 		"default_popup": "/popup/popup.html"

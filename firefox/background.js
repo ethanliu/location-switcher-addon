@@ -1,6 +1,6 @@
 var currentTabURL = "";
 var userDefinedLocations = [];
-var sourceLocation = "", destinationLocations = [], locationIcons = [];
+var sourceLocation = "", destinationLocations = [], locationIcons = {};
 var darkThemeEnabled = false, sortEnabled = false, forcePopupEnabled = false;
 
 function getNextLocation() {

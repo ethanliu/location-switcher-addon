@@ -1,5 +1,5 @@
 (function(w, d, b, f) {
-	const defaultIconPath = "icons/light/default.svg";
+	const defaultIconPath = "icons/light/default.png";
 	var targetImage, targetInput;
 
 	function Route(from, to, iconPath, looped, disabled) {

@@ -1,5 +1,6 @@
 (function(w, d, b) {
 	const isMacOS = (w.navigator.platform.toLowerCase().startsWith("mac")) ? true : false;
+	// const cosnole = b.extension.getBackgroundPage().console;
 
 	function handleResponse(response) {
 		d.body.innerHTML = "";
@@ -8,6 +9,8 @@
 		let url = response.url;
 		let source = response.source;
 		let desitinations = response.destinations;
+
+		// b.extension.getBackgroundPage().console.log(response);
 
 		var ul = d.createElement("ul");
 

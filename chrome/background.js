@@ -1,6 +1,6 @@
 var currentTabURL = "";
 var userDefinedLocations = [];
-var sourceLocation = "", destinationLocations = [], locationIcons = [];
+var sourceLocation = "", destinationLocations = [], locationIcons = {};
 var darkThemeEnabled = false, sortEnabled = false, forcePopupEnabled = false;
 
 function getNextLocation() {
@@ -21,17 +21,16 @@ function getNextLocation() {
 		}
 
 		if (icon == "") {
-			icon = darkThemeEnabled ? "icons/dark/default.svg" : "icons/light/default.svg";
+			icon = darkThemeEnabled ? "icons/dark/default.png" : "icons/light/default.png";
 		}
 		else {
 			icon = darkThemeEnabled ? icon.replace("icons/light/", "icons/dark/") : icon;
 		}
 
-		// chorme did not support SVG
-		// chrome.browserAction.setIcon({
-		// 	tabId: tabId,
-		// 	path: icon
-		// });
+		chrome.browserAction.setIcon({
+			tabId: tabId,
+			path: icon
+		});
 
 		for (var source in userDefinedLocations) {
 			if (currentTabURL.startsWith(source)) {
@@ -73,7 +72,7 @@ function getUserPreference() {
 				let source = res.data[i][0];
 				let target = res.data[i][1];
 				let loop = res.data[i][2] || true;
-				let icon = res.data[i][3] || "icons/light/default.svg";
+				let icon = res.data[i][3] || "icons/light/default.png";
 
 				if (userDefinedLocations[source] === undefined) {
 					userDefinedLocations[source] = [];
@@ -95,6 +94,8 @@ function getUserPreference() {
 					locationIcons[source] = icon;
 				}
 			}
+
+			// chrome.extension.getBackgroundPage().console.log(locationIcons);
 			// console.log(userDefinedLocations);
 			// console.log("ready");
 		}
