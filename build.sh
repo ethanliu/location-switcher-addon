@@ -57,8 +57,48 @@ function buildChrome() {
 }
 
 function buildImages() {
-	echo "Build images for Chrome"
-	# exit 1
+	echo "Generate images for Chrome from SVG"
+
+	# brew install imagemagick --with-librsvg
+	# brew install librsvg
+
+	# /usr/bin/env convert -background none firefox/icons/dark/bug.svg chrome/icons/bug.png
+	# /usr/bin/env rsvg-convert -w 32 -h 32 -b none -o chrome/icons/bug.png firefox/icons/dark/bug.svg
+	# /Applications/Inkscape.app/Contents/Resources/script --without-gui -y 0.0 -w 32 -h 32 -e ./chrome/icons/bug.png ./firefox/icons/dark/bug.svg
+
+
+	rm -fr chrome/icons
+
+	themes=( light dark )
+	size=48
+	for theme in "${themes[@]}"; do
+		mkdir -p "chrome/icons/${theme}"
+		for file in firefox/icons/$theme/*.svg; do
+			filename=`basename $file`
+			filename="${filename/.svg/}"
+
+			# qlmanage -t -s 32 -o "chrome/icons/${theme}" "${file}"
+			# mv "chrome/icons/${theme}/${filename}.svg.png" "chrome/icons/${theme}/${filename}.png"
+
+			# /usr/bin/env convert -background none -draw "image over 0,0 0,0" firefox/icons/$theme/$filename.svg chrome/icons/$theme/$filename.png
+
+			/usr/bin/env rsvg-convert -w $size -h $size -b none -o chrome/icons/$theme/$filename.png firefox/icons/$theme/$filename.svg
+		done
+	done
+
+	# /usr/bin/env convert -background none -density 300 firefox/icons/light/default.svg chrome/icons/default.svg.png
+	#
+	sizes=( 16 32 48 128 512 )
+	for size in "${sizes[@]}"; do
+		# qlmanage -t -s $size -o chrome/icons firefox/icons/light/default.svg
+		# mv chrome/icons/default.svg.png chrome/icons/default-$size.png
+
+		# /usr/bin/env convert -background none -resize "${size}x${size}" chrome/icons/default.svg.png chrome/icons/default-$size.png
+		# /usr/bin/env identify chrome/icons/default-$size.png
+
+		/usr/bin/env rsvg-convert -w $size -h $size -b none -o chrome/icons/default-$size.png firefox/icons/light/default.svg
+	done
+
 }
 
 target=${@:$OPTIND:1}
