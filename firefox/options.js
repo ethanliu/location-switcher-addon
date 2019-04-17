@@ -73,6 +73,7 @@
 		const template = Sanitizer.createSafeHTML(d.querySelector(".template").innerHTML);
 		var box = d.createElement('div');
 		box.className = "row";
+		// box.setAttribute("draggable", true);
 		box.insertAdjacentHTML('beforeend', Sanitizer.unwrapSafeHTML(template));
 
 		if (data) {
@@ -91,6 +92,7 @@
 			}
 			box.querySelector(".icon").data = route.iconPath;
 		}
+		// console.log(box);
 
 		if (node) {
 			node.parentNode.insertBefore(box, node.nextSibling);
@@ -140,7 +142,7 @@
 	d.addEventListener("DOMContentLoaded", load);
 	d.querySelector("form").addEventListener("submit", save);
 
-	d.querySelector("body").addEventListener("click", function(e) {
+	d.addEventListener("click", function(e) {
 		if (e.target.className == "add-button") {
 			insertOptionAfter(e.target.parentNode.parentNode);
 		}
