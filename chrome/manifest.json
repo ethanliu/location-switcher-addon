@@ -13,13 +13,15 @@
 	"permissions": [
 		"tabs",
 		"activeTab",
-		"storage",
-		"webNavigation"
+		"storage"
 	],
 
-	"page_action": {
-		"browser_style": true,
-		"default_icon": "icons/light/default.svg",
+	"browser_action": {
+		"default_icon": {
+			"16": "icons/light/default.svg",
+			"24": "icons/light/default.svg",
+			"32": "icons/light/default.svg"
+		},
 		"default_title": "Next location",
 		"default_popup": "/popup/popup.html"
 	},

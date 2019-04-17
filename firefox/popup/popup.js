@@ -58,8 +58,8 @@
 				}
 				if (!id) {
 					b.tabs.create({
-						url: url,
-						active: true
+						active: true,
+						url: url
 					}).then({}, handleError);
 				}
 				else {

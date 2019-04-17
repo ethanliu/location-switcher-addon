@@ -1,105 +1,52 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<style>
-body {
-	padding: 2rem;
-}
-input[type="url"],input[type="text"] { width: 100%; }
-ul { margin: 0 0 0 2rem; padding: 0; }
-li { line-height: 1.5rem; }
-button {
-	background-color: #efefef;
-	font-size: 1.2rem;
-	padding: 0.4rem 1rem;
-	border: 0;
-}
-.row { width: 100%; margin-bottom: 1rem; clear: both;}
-.row div { padding-right: 1rem; }
-.row div:last-child { padding-right: 0; }
-.col1 { width: 30%; display: inline-block; }
-.col2 { width: 10%; display: inline-block; white-space: nowrap; }
-.col3 { width: 15%; display: inline-block; white-space: nowrap; }
-.col4 { width: 5%; display: inline-block; white-space: nowrap; }
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	bottom: 1.5rem;
-	width: auto;
-	height: auto;
-	overflow: auto;
-	padding: 1rem 2rem;
-	border: 5px solid #999;
-	border-radius: 0.5rem;
-	background-color: #fff;
-	margin: 0 2%;
-	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-}
-.modal .item {
-	float: left;
-	padding: 1rem;
-	cursor: pointer;
-}
-.modal textarea, .modal input {
-	width: 100%;
-/*	height: 5rem;*/
-	margin: 1rem 0;
-}
-.icon {
-	width: 19px;
-	height: 19px;
-	vertical-align: middle;
-	cursor: pointer;
-}
-</style>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="options.css">
 </head>
 <body>
 
 <ul>
-	<li>Uncheck "Loop" option to create one way route when you would like to create custom routes. This allows switching from "Source" to "Destination" but not backward.</li>
-	<li>Multiple destinations of the same source will shows as popup.</li>
-	<li>SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></li>
+	<li>Uncheck "Loop" option to create a one-way route when you would like to create custom routes. This allows switching from "Source" to "Destination" but not backward.</li>
+	<!-- <li>Multiple destinations of the same source will show as a popup.</li> -->
+	<!-- <li>SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></li> -->
 </ul>
 
 <p><br></p>
 <form name="form">
 
-	<div class="row"><label><input type="checkbox" name="darktheme" value="1"> Dark theme</label></div>
-	<div class="row"><label><input type="checkbox" name="sort" value="1"> Sort destinations in popup</label></div>
+	<div><label><input type="checkbox" name="dark_theme" value="1"> Dark theme</label></div>
+	<div><label><input type="checkbox" name="force_popup" value="1"> Show popup even when there is only one destination</label></div>
+	<div><label><input type="checkbox" name="sort" value="1"> Sort destinations in popup</label></div>
 	<br><br>
 
-	<div class="row">
-		<div class="col4">Icon</div>
-		<div class="col1">Source</div>
-		<div class="col1">Destination</div>
-		<div class="col2">Loop</div>
-		<div class="col3"></div>
-	</div>
 
+	<div class="row header">
+		<div>Icon</div>
+		<div>Source</div>
+		<div>Destination</div>
+		<div>Loop</div>
+		<div>Disabled</div>
+		<div></div>
+	</div>
 	<div class="content">
 	</div>
 
-	<div class="row">
-		<br>
-		<button type="submit">Save</button>
-	</div>
+
+	<br>
+	<button type="submit">Save</button>
 
 	<template class="template">
-		<div class="col4">
+		<div>
 			<img src="icons/light/default.svg" class="icon icon-button">
 			<!-- <object class="icon icon-button" type="image/svg+xml" data="icons/default.svg"></object> -->
 			<input type="hidden" name="icon[]" value="">
 		</div>
-		<div class="col1"><input type="url" name="source[]" value="" placeholder="http://"></div>
-		<div class="col1"><input type="url" name="target[]" value="" placeholder="http://"></div>
-		<div class="col2"><label><input type="checkbox" name="loop[]" value="1" checked> Yes</label></div>
-		<div class="col3">
-			<button type="button" class="add-button">+</button>
-			<button type="button" class="del-button">-</button>
-		</div>
+		<div><input type="url" name="source[]" value="" placeholder="http://"></div>
+		<div><input type="url" name="target[]" value="" placeholder="http://"></div>
+		<div><label><input type="checkbox" name="loop[]" value="1" checked></label></div>
+		<div><label><input type="checkbox" name="disabled[]" value="1"></label></div>
+		<div><button type="button" class="add-button">+</button><button type="button" class="del-button">-</button></div>
 	</template>
 
 </form>
@@ -159,9 +106,11 @@ button {
 	<br>
 	<!-- <div><textarea name="custom" placeholder="Custom SVG or icon URL"></textarea></div> -->
 	<div><input type="url" name="custom" placeholder="Custom Image URL, i.e. favicon" value=""></div>
+	<div class="icons8">SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></div>
 	<div><button type="button" class="custom-icon-button">Custom</button></div>
 </div>
 
+<script src="sanitizer.js"></script>
 <script src="options.js"></script>
 
 </body>

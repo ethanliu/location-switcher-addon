@@ -1,4 +1,3 @@
-
 var currentTabURL = "";
 var userDefinedLocations = [];
 var sourceLocation = "", destinationLocations = [], locationIcons = [];
