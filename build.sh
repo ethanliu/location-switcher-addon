@@ -18,6 +18,7 @@ exit 0
 function buildFirefox() {
 	tmp="tmp"
 
+	rm -fr $tmp
 	cp -aR firefox $tmp
 
 	cd $tmp
@@ -53,11 +54,17 @@ function buildFirefox() {
 
 function buildChrome() {
 	echo "Build extension for Chrome"
-	# exit 1
+
+	tmp="tmp"
+
+	rm -fr $tmp
+	cp -aR chrome $tmp
+	/usr/bin/env web-ext build -s $tmp -a dist
+	rm -fr $tmp
 }
 
 function buildImages() {
-	echo "Generate images for Chrome from SVG"
+	echo "Generate PNG images from SVG"
 
 	# brew install imagemagick --with-librsvg
 	# brew install librsvg
