@@ -31,6 +31,7 @@ function getNextLocation() {
 			path: icon
 		});
 
+
 		for (var source in userDefinedLocations) {
 			if (currentTabURL.startsWith(source)) {
 				browser.pageAction.show(tabId);
@@ -42,11 +43,19 @@ function getNextLocation() {
 						destinationLocations.sort();
 					}
 					browser.pageAction.setPopup({tabId, popup: "popup/popup.html"});
+					browser.pageAction.setTitle({
+						tabId: tabId,
+						title: destinationLocations.length + " locations"
+					});
 				}
 				else {
 					destinationLocations = [currentTabURL.replace(sourceLocation, destinationLocations[0]).replace(/(https?:\/\/)|(\/)+/g, "$1$2")];
 					browser.pageAction.setPopup({tabId, popup: ""});
 					// browser.pageAction.hide(tabId);
+					browser.pageAction.setTitle({
+						tabId: tabId,
+						title: destinationLocations[0]
+					});
 				}
 				return;
 			}

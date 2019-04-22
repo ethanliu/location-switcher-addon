@@ -27,7 +27,7 @@
 	"page_action": {
 		"browser_style": true,
 		"default_icon": "icons/light/default.svg",
-		"default_title": "Next location",
+		//"default_title": "Next location",
 		"default_popup": "/popup/popup.html"
 	},
 

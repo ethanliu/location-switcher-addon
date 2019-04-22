@@ -44,11 +44,19 @@ function getNextLocation() {
 						destinationLocations.sort();
 					}
 					chrome.browserAction.setPopup({tabId, popup: "popup/popup.html"});
+					browser.pageAction.setTitle({
+						tabId: tabId,
+						title: destinationLocations.length + " locations"
+					});
 				}
 				else {
 					destinationLocations = [currentTabURL.replace(sourceLocation, destinationLocations[0]).replace(/(https?:\/\/)|(\/)+/g, "$1$2")];
 					chrome.browserAction.setPopup({tabId, popup: ""});
 					// chrome.pageAction.hide(tabId);
+					browser.pageAction.setTitle({
+						tabId: tabId,
+						title: destinationLocations[0]
+					});
 				}
 				chrome.browserAction.enable();
 				return;
