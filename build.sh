@@ -28,7 +28,9 @@ function buildFirefox() {
 
 	for file in `find . -type f -name "*.js"`; do
 		echo "Minify: ${file}"
-		/usr/bin/env uglifyjs "${file}" > "${file}.min"
+		# /usr/bin/env uglifyjs "${file}" > "${file}.min"
+		# just remove comments
+		/usr/bin/env uglifyjs "${file}" -o "${file}.min" -b
 		rm "${file}"
 		mv "${file}.min" "${file}"
 	done
@@ -47,7 +49,7 @@ function buildFirefox() {
 
 	cd ..
 
-	/usr/bin/env web-ext build -s $tmp -a dist
+	/usr/bin/env web-ext build -s $tmp -a dist --overwrite-dest
 
 	rm -fr $tmp
 }
