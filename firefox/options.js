@@ -6,7 +6,7 @@
 		this.source = from || "";
 		this.destination = to || "";
 		this.iconPath = iconPath || defaultIconPath;
-		this.looped = looped || true;
+		this.looped = looped || false;
 		this.disabled = disabled || false;
 
 		this.valid = function() {
@@ -50,6 +50,8 @@
 			"forcePopupEnabled": forcePopupEnabled
 		});
 		b.runtime.reload();
+		// prevent v68 cleanup the content?!
+		alert("Saved and reloaded.");
 	}
 
 	function collect(e) {
