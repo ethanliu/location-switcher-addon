@@ -18,6 +18,7 @@
 	],
 
 	"browser_action": {
+	//"page_action": {
 		"default_icon": {
 			"32": "icons/light/default.png"
 		},

@@ -29,8 +29,8 @@ a {
 }
 
 img {
-	width: 19px;
-	height: 19px;
+	width: 19px !important;
+	height: 19px !important;
 /*	object-fill: fill;*/
 	vertical-align: middle;
 	margin: auto 0.5rem auto 1rem;

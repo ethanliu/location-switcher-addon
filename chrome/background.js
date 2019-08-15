@@ -6,9 +6,11 @@ var darkThemeEnabled = false, sortEnabled = false, forcePopupEnabled = false;
 function getNextLocation() {
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		var tabId = tabs[0].id;
+
 		currentTabURL = tabs[0].url;
 		sourceLocation = "";
 		destinationLocations = [];
+
 		// chrome.pageAction.hide(tabId);
 		chrome.browserAction.setPopup({popup: ""});
 
@@ -34,7 +36,7 @@ function getNextLocation() {
 
 		for (var source in userDefinedLocations) {
 			if (currentTabURL.startsWith(source)) {
-				// chrome.pageAction.show(tabId);
+				// chrome.browserAction.show(tabId);
 				chrome.browserAction.setPopup({popup: ""});
 				sourceLocation = source;
 				destinationLocations = userDefinedLocations[source];
@@ -44,7 +46,7 @@ function getNextLocation() {
 						destinationLocations.sort();
 					}
 					chrome.browserAction.setPopup({tabId, popup: "popup/popup.html"});
-					browser.pageAction.setTitle({
+					chrome.browserAction.setTitle({
 						tabId: tabId,
 						title: destinationLocations.length + " locations"
 					});
@@ -52,8 +54,8 @@ function getNextLocation() {
 				else {
 					destinationLocations = [currentTabURL.replace(sourceLocation, destinationLocations[0]).replace(/(https?:\/\/)|(\/)+/g, "$1$2")];
 					chrome.browserAction.setPopup({tabId, popup: ""});
-					// chrome.pageAction.hide(tabId);
-					browser.pageAction.setTitle({
+					// chrome.browserAction.hide(tabId);
+					chrome.browserAction.setTitle({
 						tabId: tabId,
 						title: destinationLocations[0]
 					});
@@ -139,7 +141,8 @@ chrome.tabs.onActivated.addListener(function(tab) {
 });
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-	// console.log("onClicked");
+// chrome.pageAction.onClicked.addListener(function(tab) {
+	console.log("onClicked");
 	chrome.tabs.update(tab.id, {url: destinationLocations[0]});
 });
 
