@@ -45,7 +45,7 @@
 	}
 
 	function openURL(url, newTab) {
-		// console.log(url);
+		// console.log(`newTab: ${newTab}, ${url}`);
 
 		if (newTab) {
 			b.tabs.query({currentWindow: true}).then((tabs) => {
@@ -111,22 +111,27 @@
 	});
 
 	d.addEventListener("mouseup", function(e) {
-		// console.log(`${e.button}`);
+		e.preventDefault();
+		// console.log(`${e.button}`); // middle-click
 		// console.log(`${e.buttons}`);
 		// console.log(`${e.ctrlKey}`);
 		// console.log(`${e.altKey}`);
-		// console.log(`${e.metaKey}`);
+		// console.log(`${e.metaKey}`); // cmd on mac
 		// console.log(`${e.shiftKey}`);
 		// console.log(`${e.target}`);
 		// console.log(`${e.relatedtTarget}`);
 
-		var newTab = false;
+		if (e.button == 1) {
+			return true;
+		}
 
 		// middle-click
 		// cmd-click for macos
 		// ctrl-click for windows
+		// e.button == 1 ||
 
-		if (e.button == 1 || (isMacOS && e.button == 0 && e.metaKey) || (!isMacOS && e.button == 0 && e.ctrlKey)) {
+		var newTab = false;
+		if ((isMacOS && e.button == 0 && e.metaKey) || (!isMacOS && e.button == 0 && e.ctrlKey)) {
 			newTab = true;
 		}
 

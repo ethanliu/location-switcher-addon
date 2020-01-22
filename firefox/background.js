@@ -3,15 +3,20 @@ var userDefinedLocations = [];
 var sourceLocation = "", destinationLocations = [], locationIcons = {};
 var darkThemeEnabled = false, sortEnabled = false, forcePopupEnabled = false;
 
+const darkFillColor = "#000055";
+
 function getNextLocation() {
+
 	browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
-		var tabId = tabs[0].id;
+		// const tab = tabs[0];
+		const tabId = tabs[0].id;
+
 		currentTabURL = tabs[0].url;
 		sourceLocation = "";
 		destinationLocations = [];
 		browser.pageAction.hide(tabId);
 
-		var icon = "";
+		var icon = "icons/default.svg";
 		for (var source in locationIcons) {
 			if (currentTabURL.startsWith(source)) {
 				icon = locationIcons[source];
@@ -19,24 +24,17 @@ function getNextLocation() {
 			}
 		}
 
-		if (icon == "") {
-			icon = darkThemeEnabled ? "icons/dark/default.svg" : "icons/light/default.svg";
-		}
-		else {
-			icon = darkThemeEnabled ? icon.replace("icons/light/", "icons/dark/") : icon;
-		}
-
-		browser.pageAction.setIcon({
-			tabId: tabId,
-			path: icon
-		});
-
+		// legacy
+		icon = icon.replace('icons/light/', 'icons/');
+		icon = icon.replace('icons/dark/', 'icons/');
 
 		for (var source in userDefinedLocations) {
 			if (currentTabURL.startsWith(source)) {
 				browser.pageAction.show(tabId);
 				sourceLocation = source;
 				destinationLocations = userDefinedLocations[source];
+
+				updateIcon(tabId, icon, darkThemeEnabled);
 
 				if (destinationLocations.length > 1 || forcePopupEnabled) {
 					if (sortEnabled) {
@@ -60,6 +58,15 @@ function getNextLocation() {
 				return;
 			}
 		}
+
+		// default icon fallback
+		console.log("fallback");
+		updateIcon(-1, icon, darkThemeEnabled);
+		// browser.pageAction.setIcon({
+		// 	tabId: tabId,
+		// 	path: icon
+		// });
+
 	});
 }
 
@@ -72,6 +79,77 @@ function getNextLocation() {
 // 		console.log(theme.colors.toolbar);
 // 	}
 // }
+
+
+function b64EncodeUnicode(str) {
+	// first we use encodeURIComponent to get percent-encoded UTF-8,
+	// then we convert the percent encodings into raw bytes which
+	// can be fed into btoa.
+	return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+		function toSolidBytes(match, p1) {
+			return String.fromCharCode('0x' + p1);
+	}));
+}
+
+function updateIcon(tabId, iconPath, darkMode) {
+	if (tabId == -1) {
+		console.log('hide');
+		return
+	}
+
+	const request = new XMLHttpRequest();
+	request.onload = () => {
+		if (request.responseType === "blob") {
+			const reader = new FileReader();
+			reader.onload = () => {
+				// console.log("reader:");
+				// console.log(reader.result);
+			};
+			reader.readAsDataURL(request.response);
+		}
+		else {
+			// console.log("request:");
+
+			// var svg = request.response;
+			// if (darkThemeEnabled) {
+			// 	const re = new RegExp(fillColor, 'gi');
+			// 	svg = svg.replace(re, darkFillColor);
+			// }
+
+			var svg = !darkThemeEnabled ? request.response : request.response.replace(/#666666/g, darkFillColor);
+			svg = "data:image/svg+xml;base64," + b64EncodeUnicode(svg);
+
+			// pageAction icon
+
+			const canvas = document.createElement('canvas');
+			const ctx = canvas.getContext("2d");
+			const img = new Image();
+			img.onload = () => {
+				ctx.drawImage(img, 0, 0, 19, 19);
+				browser.pageAction.setIcon({
+					tabId: tabId,
+					imageData: ctx.getImageData(0, 0, 19, 19)
+				});
+			}
+			img.src = svg;
+
+			// tab icon
+			// Note: browser.tabs.executeScript requre '<all_urls>' permission, seems "activeTab" is not enough?
+			// fixme: mulltiple injection issue
+			const a = document.getElementById('location-switcher-icon');
+			console.log(a);
+
+			browser.tabs.executeScript(tabId, {file: "/favicon.js"}).then(() => {
+				browser.tabs.sendMessage(tabId, {dataURI: svg});
+			});
+
+		}
+	};
+	request.open("GET", iconPath, true);
+	// request.responseType = "blob";
+	request.send();
+}
+
 
 function getUserPreference() {
 
@@ -87,7 +165,7 @@ function getUserPreference() {
 				let source = res.data[i][0];
 				let target = res.data[i][1];
 				let loop = res.data[i][2] || true;
-				let icon = res.data[i][3] || "icons/light/default.svg";
+				let icon = res.data[i][3] || "icons/default.svg";
 
 				if (userDefinedLocations[source] === undefined) {
 					userDefinedLocations[source] = [];
@@ -134,7 +212,6 @@ browser.tabs.onUpdated.addListener((tabId, changeInfo, tabInfo) => {
 });
 
 browser.tabs.onActivated.addListener(() => {
-	// console.log("onActivated");
 	getNextLocation();
 });
 
@@ -143,6 +220,7 @@ browser.pageAction.onClicked.addListener(() => {
 });
 
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+	console.log('xxx');
 	if (request.action && request.action == "getTabLocations") {
 		sendResponse({
 			url: currentTabURL,
