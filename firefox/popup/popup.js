@@ -1,3 +1,5 @@
+"use strict";
+
 (function(w, d, b) {
 	const isMacOS = (w.navigator.platform.toLowerCase().startsWith("mac")) ? true : false;
 

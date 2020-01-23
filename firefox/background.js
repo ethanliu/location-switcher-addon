@@ -1,3 +1,6 @@
+"use strict";
+
+
 var currentTabURL = "";
 var userDefinedLocations = [];
 var sourceLocation = "", destinationLocations = [], locationIcons = {};
@@ -136,11 +139,14 @@ function updateIcon(tabId, iconPath, darkMode) {
 			// tab icon
 			// Note: browser.tabs.executeScript requre '<all_urls>' permission, seems "activeTab" is not enough?
 			// fixme: mulltiple injection issue
-			const a = document.getElementById('location-switcher-icon');
-			console.log(a);
 
-			browser.tabs.executeScript(tabId, {file: "/favicon.js"}).then(() => {
-				browser.tabs.sendMessage(tabId, {dataURI: svg});
+			browser.tabs.sendMessage(tabId, {}).then(() => {
+				// do nothing
+			}, (error) => {
+				// inject once per-tab
+				browser.tabs.executeScript(tabId, {file: "/favicon.js"}).then(() => {
+					browser.tabs.sendMessage(tabId, {dataURI: svg});
+				});
 			});
 
 		}

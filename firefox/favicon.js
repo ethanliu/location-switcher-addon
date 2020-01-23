@@ -1,3 +1,4 @@
+"use strict";
 
 function updateFavIcon(dataURI) {
 	clearFavIcon();
@@ -5,7 +6,7 @@ function updateFavIcon(dataURI) {
 	const link = document.createElement('link');
 	link.type = 'image/x-icon';
 	link.rel = 'shortcut icon';
-	link.id = 'location-switcher-icon';
+	link.id = 'location-switcher-addon-icon';
 	link.href = dataURI;
 
 	document.getElementsByTagName('head')[0].appendChild(link);
@@ -19,11 +20,12 @@ function clearFavIcon() {
 	}
 }
 
-// browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-// 	if (sender.url.startsWith(browser.extension.getURL(""))) {
-// 		// const a = document.getElementById('location-switcher-icon');
-// 		// console.log(a);
-// 		updateFavIcon(request.dataURI);
-// 	}
-// });
-//
+browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+	updateFavIcon(request.dataURI);
+	// if (sender.url.startsWith(browser.extension.getURL(""))) {
+	// 	const a = document.getElementById('location-switcher-addon-icon');
+	// 	if (a === null || a === undefined) {
+	// 	}
+	// }
+});
+
