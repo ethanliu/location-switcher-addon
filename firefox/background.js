@@ -1,12 +1,11 @@
 "use strict";
 
-
 var currentTabURL = "";
 var userDefinedLocations = [];
 var sourceLocation = "", destinationLocations = [], locationIcons = {};
 var darkThemeEnabled = false, sortEnabled = false, forcePopupEnabled = false;
 
-const darkFillColor = "#000055";
+const darkFillColor = "#b1b1b1";
 
 function getNextLocation() {
 
@@ -63,7 +62,7 @@ function getNextLocation() {
 		}
 
 		// default icon fallback
-		console.log("fallback");
+		// console.log("fallback");
 		updateIcon(-1, icon, darkThemeEnabled);
 		// browser.pageAction.setIcon({
 		// 	tabId: tabId,
@@ -96,7 +95,6 @@ function b64EncodeUnicode(str) {
 
 function updateIcon(tabId, iconPath, darkMode) {
 	if (tabId == -1) {
-		console.log('hide');
 		return
 	}
 
@@ -226,7 +224,6 @@ browser.pageAction.onClicked.addListener(() => {
 });
 
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-	console.log('xxx');
 	if (request.action && request.action == "getTabLocations") {
 		sendResponse({
 			url: currentTabURL,

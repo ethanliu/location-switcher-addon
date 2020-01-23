@@ -49,6 +49,10 @@ body.dark {
 	background-color: #222;
 }
 
-.dark li:hover img {
-	fill: #fff !important;
+.dark li img {
+	filter: invert(1);
 }
+
+/*.dark li:hover img {
+	filter: invert(1);
+}*/

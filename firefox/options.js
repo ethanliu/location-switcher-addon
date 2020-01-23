@@ -1,5 +1,5 @@
 (function(w, d, b, f) {
-	const defaultIconPath = "icons/light/default.svg";
+	const defaultIconPath = "icons/default.svg";
 	var targetImage, targetInput;
 
 	function Route(from, to, iconPath, looped, disabled) {
@@ -8,6 +8,11 @@
 		this.iconPath = iconPath || defaultIconPath;
 		this.looped = looped || false;
 		this.disabled = disabled || false;
+
+		// legacy
+		this.iconPath = this.iconPath.replace('icons/light/', 'icons/');
+		this.iconPath = this.iconPath.replace('icons/dark/', 'icons/');
+
 
 		this.valid = function() {
 			return (this.source === "" && this.destination === "") ? false : true;
