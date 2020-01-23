@@ -37,6 +37,7 @@
 			}
 			insertOptionAfter();
 			f.elements["dark_theme"].checked = res.darkThemeEnabled || false;
+			f.elements["alter_favicon"].checked = res.alterFaviconEnabled || false;
 			f.elements["sort"].checked = res.sortEnabled || false;
 			f.elements["force_popup"].checked = res.forcePopupEnabled || false;
 		}, handleError);
@@ -44,6 +45,7 @@
 
 	function save() {
 		let darkThemeEnabled = f.elements["dark_theme"].checked;
+		let alterFaviconEnabled = f.elements["alter_favicon"].checked;
 		let sortEnabled = f.elements["sort"].checked;
 		let forcePopupEnabled = f.elements["force_popup"].checked;
 		let data = collect(f.elements);
@@ -51,6 +53,7 @@
 		b.storage.sync.set({
 			"data": data,
 			"darkThemeEnabled": darkThemeEnabled,
+			"alterFaviconEnabled": alterFaviconEnabled,
 			"sortEnabled": sortEnabled,
 			"forcePopupEnabled": forcePopupEnabled
 		});

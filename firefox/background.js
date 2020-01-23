@@ -3,7 +3,7 @@
 var currentTabURL = "";
 var userDefinedLocations = [];
 var sourceLocation = "", destinationLocations = [], locationIcons = {};
-var darkThemeEnabled = false, sortEnabled = false, forcePopupEnabled = false;
+var darkThemeEnabled = false, alterFaviconEnabled = false, sortEnabled = false, forcePopupEnabled = false;
 
 const darkFillColor = "#b1b1b1";
 
@@ -140,15 +140,17 @@ function updateIcon(tabId, iconPath, darkMode) {
 			// Note: browser.tabs.executeScript requre '<all_urls>' permission, seems "activeTab" is not enough?
 			// fixme: mulltiple injection issue
 
-			browser.tabs.sendMessage(tabId, {}).then(() => {
-				// do nothing
-			}, () => {
-				// console.log(error);
-				// inject once per-tab
-				browser.tabs.executeScript(tabId, {file: "/favicon.js"}).then(() => {
-					browser.tabs.sendMessage(tabId, {dataURI: svg});
+			if (alterFaviconEnabled) {
+				browser.tabs.sendMessage(tabId, {}).then(() => {
+					// do nothing
+				}, () => {
+					// console.log(error);
+					// inject once per-tab
+					browser.tabs.executeScript(tabId, {file: "/favicon.js"}).then(() => {
+						browser.tabs.sendMessage(tabId, {dataURI: svg});
+					});
 				});
-			});
+			}
 
 		}
 	};
@@ -199,6 +201,7 @@ function getUserPreference() {
 		}
 
 		darkThemeEnabled = res.darkThemeEnabled || false;
+		alterFaviconEnabled = res.alterFaviconEnabled || false;
 		sortEnabled = res.sortEnabled || false;
 		forcePopupEnabled = res.forcePopupEnabled || false;
 	});
