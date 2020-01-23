@@ -19,7 +19,9 @@ function getNextLocation() {
 		browser.pageAction.hide(tabId);
 
 		var icon = "icons/default.svg";
-		for (var source in locationIcons) {
+		var source = "";
+
+		for (source in locationIcons) {
 			if (currentTabURL.startsWith(source)) {
 				icon = locationIcons[source];
 				break;
@@ -30,7 +32,7 @@ function getNextLocation() {
 		icon = icon.replace('icons/light/', 'icons/');
 		icon = icon.replace('icons/dark/', 'icons/');
 
-		for (var source in userDefinedLocations) {
+		for (source in userDefinedLocations) {
 			if (currentTabURL.startsWith(source)) {
 				browser.pageAction.show(tabId);
 				sourceLocation = source;
@@ -117,7 +119,7 @@ function updateIcon(tabId, iconPath, darkMode) {
 			// 	svg = svg.replace(re, darkFillColor);
 			// }
 
-			var svg = !darkThemeEnabled ? request.response : request.response.replace(/#666666/g, darkFillColor);
+			var svg = !darkMode ? request.response : request.response.replace(/#666666/g, darkFillColor);
 			svg = "data:image/svg+xml;base64," + b64EncodeUnicode(svg);
 
 			// pageAction icon
@@ -140,7 +142,8 @@ function updateIcon(tabId, iconPath, darkMode) {
 
 			browser.tabs.sendMessage(tabId, {}).then(() => {
 				// do nothing
-			}, (error) => {
+			}, () => {
+				// console.log(error);
 				// inject once per-tab
 				browser.tabs.executeScript(tabId, {file: "/favicon.js"}).then(() => {
 					browser.tabs.sendMessage(tabId, {dataURI: svg});
@@ -205,7 +208,7 @@ function getUserPreference() {
 
 getUserPreference();
 
-browser.tabs.onUpdated.addListener((tabId, changeInfo, tabInfo) => {
+browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
 	// console.log("onUpdated");
 	// browser.pageAction.hide(tabId);
 	// console.log(changeInfo.status);

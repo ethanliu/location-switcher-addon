@@ -52,7 +52,7 @@
 		if (newTab) {
 			b.tabs.query({currentWindow: true}).then((tabs) => {
 				var id = false;
-				for (index in tabs) {
+				for (var index in tabs) {
 					if (tabs[index].url == url) {
 						id = tabs[index].id
 						break;

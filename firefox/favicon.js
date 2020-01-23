@@ -20,7 +20,7 @@ function clearFavIcon() {
 	}
 }
 
-browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((request) => {
 	updateFavIcon(request.dataURI);
 	// if (sender.url.startsWith(browser.extension.getURL(""))) {
 	// 	const a = document.getElementById('location-switcher-addon-icon');
