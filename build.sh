@@ -7,23 +7,30 @@ Usage: `basename $0` <target>
 
 Targets:
 
-	firefox		Build Firefox extension
-	chrome		Build Chrome extension
-	icon		Build images for Chrome extension
+	firefox				Build Firefox extension
+	firefox-advanced	Build Firefox extension (advanced version)
+	chrome				Build Chrome extension
+	icon				Build images for Chrome extension
 
 EOF
 exit 0
 }
 
 function buildFirefox() {
+	if [[ $1 == true ]]; then
+		buildName="firefox-advanced"
+	else
+		buildName="firefox"
+	fi
+
 	tmp="tmp"
 
 	rm -fr $tmp
-	cp -aR firefox $tmp
+	cp -aR $buildName $tmp
 
 	cd $tmp
 	version=`cat manifest.json | sed -n "s/.*\"version\": \"\(.*\)\".*/\1/p"`
-	echo "Build extension for Firefox"
+	echo "Build extension for ${buildName}"
 	echo "Version: ${version}"
 
 	for file in `find . -type f -name "*.js"`; do
@@ -113,7 +120,8 @@ function buildImages() {
 target=${@:$OPTIND:1}
 
 case $target in
-	"firefox") buildFirefox;;
+	"firefox") buildFirefox false;;
+	"firefox-advanced") buildFirefox true;;
 	"chrome") buildChrome;;
 	"icon") buildImages;;
 	*) usage;;
