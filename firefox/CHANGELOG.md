@@ -4,7 +4,7 @@ All notable changes to this extension.
 
 ## [Unreleased]
 
-## [1.3.2] - 2020-02-06
+## [1.4.0] - 2020-02-06
 ### Added
 - This CHANGELOG file
 

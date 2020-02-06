@@ -19,8 +19,8 @@ http://dev3.server -> http://dev1.server
 
 ### Notice
 
-* All routes followed by the order and did not check any duplicate or conflict.
-* file:// protocol is not support due to security policy by Firefox.
+- All routes followed by the order and did not check any duplicate or conflict.
+- file:// protocol is not support due to security policy by Firefox.
 
 ## How it works
 
@@ -35,10 +35,23 @@ Replace previous founded prefix with matched or selected destination from curren
 - You may change the icon for each destination instead of default ☯ in address bar.
 - Allows to disable rules.
 
-## Versioning
+## Extension versions
 
-Due to the self-hosted beta still need to signed by Firefox with a properly version number.  
-The version number will use Major.Release.Beta format.  
+### firefox
+
+Original version, keep it simple and lightweight.
+
+### firefox-advanced
+
+Advanced or experiment version, requires more permissions.  
+Differents from orignal version:
+
+- Option for replacing the favicon
+
+### chrome
+
+Experiment, no public release yet.
+
 
 ## Download
 
