@@ -148,7 +148,7 @@
 	d.addEventListener("DOMContentLoaded", load);
 	d.querySelector("form").addEventListener("submit", save);
 
-	d.addEventListener("click", function(e) {
+	d.addEventListener("click", e => {
 		if (e.target.className == "add-button") {
 			insertOptionAfter(e.target.parentNode.parentNode);
 		}
@@ -187,6 +187,64 @@
 		}
 		// e.preventDefault();
 	});
+
+	d.getElementById("export-button").addEventListener("click", () => {
+		b.storage.sync.get(null).then((res) => {
+			var json = [];
+
+			if (res.data && res.data.length > 0) {
+				for (const item of res.data) {
+					let route = new Route(item[0], item[1], item[3], item[2], item[4]);
+					if (route.valid()) {
+						json.push(route);
+					}
+				}
+			}
+			else {
+				json.push(new Route("http://localhost/sub", "https://sub.example.com", "", true, false));
+				json.push(new Route("http://localhost", "https://example.com", "", true, false));
+			}
+
+			const filename = 'location-switcher-addon.json';
+			const blob = new Blob([JSON.stringify(json, null, 4)], {type: 'application/json'});
+			const url = URL.createObjectURL(blob);
+
+			const a = d.createElement('a');
+			a.href = url;
+			a.download = filename;
+			a.click();
+
+			URL.revokeObjectURL(url);
+		});
+	});
+
+	d.getElementById("import-button").addEventListener("change", e => {
+		const file = e.target.files[0] || null;
+		if (!file || !file.type.match('application/json')) {
+			// console.log("invalid file format");
+			return;
+		}
+
+		const reader = new FileReader();
+		reader.onload = () => {
+			try {
+				const json = JSON.parse(reader.result);
+				d.querySelector(".content").innerHTML = "";
+				for (const item of json) {
+					let route = new Route(item.source, item.destination, item.iconPath, item.looped, item.disabled);
+					if (route.valid()) {
+						insertOptionAfter(null, route.flatten());
+					}
+				}
+				insertOptionAfter();
+			}
+			catch (error) {
+				alert(error);
+			}
+		};
+		reader.readAsText(file);
+	});
+
 
 
 })(window, document, browser, document.forms["form"]);

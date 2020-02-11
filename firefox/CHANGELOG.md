@@ -4,9 +4,10 @@ All notable changes to this extension.
 
 ## [Unreleased]
 
-## [1.4.0] - 2020-02-06
+## [1.4.0] - 2020-02
 ### Added
 - This CHANGELOG file
+- Import/Export routes in JSON foramt
 
 ### Removed
 - Alter favicon and related preferences to keep the extension lightweight
