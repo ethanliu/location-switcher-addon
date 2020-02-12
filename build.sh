@@ -50,6 +50,9 @@ function buildFirefox() {
 		mv "${file}.min" "${file}"
 	done
 
+	# remove unnecessary files
+	rm *.md
+
 	# echo "Package: ${zipfile}"
 	# zipfile="../dist/location-switcher-firefox-addon-${version}.zip"
 	# mkdir -p ../dist
