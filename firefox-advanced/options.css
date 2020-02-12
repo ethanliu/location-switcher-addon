@@ -2,7 +2,11 @@ body {
 	padding: 0;
 }
 
-input[type="url"],input[type="text"] {
+input[type=file] {
+	display: none;
+}
+
+input[type="url"], input[type="text"] {
 	width: 100%;
 }
 
@@ -15,7 +19,7 @@ li {
 	 line-height: 1.5rem;
 }
 
-button {
+button, .button {
 	background-color: #efefef;
 	font-size: 1.2rem;
 	padding: 0.4rem 1rem;
@@ -23,7 +27,7 @@ button {
 	border-radius: 2px;
 }
 
-button:hover {
+button:hover, .button:hover {
 	background-color: #ccc;
 }
 
@@ -54,6 +58,11 @@ button:hover {
 
 .row button:last-child {
 	border-radius: 0 2px 2px 0;
+}
+
+.tool-buttons {
+	float: right;
+	margin-left: 1rem;
 }
 
 .modal {

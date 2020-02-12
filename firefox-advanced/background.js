@@ -143,7 +143,7 @@ function updateIcon(tabId, iconPath, darkMode) {
 				browser.tabs.sendMessage(tabId, {}).then(() => {
 					// do nothing
 					// console.log("exists");
-				}, (error) => {
+				}, () => {
 					// console.log(error);
 					// inject once per-tab
 					browser.tabs.executeScript(tabId, {file: "/favicon.js"}).then(() => {

@@ -11,6 +11,7 @@ Targets:
 	firefox-advanced	Build Firefox extension (advanced version)
 	chrome				Build Chrome extension
 	icon				Build images for Chrome extension
+	test				Run eslint for every js file
 
 EOF
 exit 0
@@ -114,7 +115,12 @@ function buildImages() {
 
 		/usr/bin/env rsvg-convert -w $size -h $size -b none -o chrome/icons/default-$size.png firefox/icons/light/default.svg
 	done
+}
 
+function test() {
+	for path in `find . -type f -name "*.js"`; do
+		eslint $path
+	done
 }
 
 target=${@:$OPTIND:1}
@@ -124,5 +130,6 @@ case $target in
 	"firefox-advanced") buildFirefox true;;
 	"chrome") buildChrome;;
 	"icon") buildImages;;
+	"test") test;;
 	*) usage;;
 esac
