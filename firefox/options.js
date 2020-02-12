@@ -148,7 +148,7 @@
 	d.addEventListener("DOMContentLoaded", load);
 	d.querySelector("form").addEventListener("submit", save);
 
-	d.addEventListener("click", e => {
+	d.addEventListener("click", (e) => {
 		if (e.target.className == "add-button") {
 			insertOptionAfter(e.target.parentNode.parentNode);
 		}
