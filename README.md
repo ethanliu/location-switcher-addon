@@ -56,6 +56,7 @@ Experiment, no public release yet.
 ## Download
 
 https://addons.mozilla.org/en-US/firefox/addon/location-switcher
+https://addons.mozilla.org/en-US/firefox/addon/location-switcher-advanced (Experimental)
 
 ## Source code
 
