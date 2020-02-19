@@ -1,4 +1,4 @@
-Location Switcher lets you switching between sites by click the ☯ icon from the address bar.  
+Location Switcher lets you switch between sites by click the ☯ icon from the address bar.  
 In most cases, you would like to switch between development and production sites.  
 
 For example a simple route:
@@ -24,27 +24,27 @@ http://dev3.server -> http://dev1.server
 
 ## How it works
 
-It walk through each route as prefix by order to find the first matched record for current URL.  
-Replace previous founded prefix with matched or selected destination from current URL.  
+It walks through each route as a prefix by order to find the first matched record for the current URL.  
+Replace previously founded prefix with matched or selected destination from the current URL.  
 
 ## Description
 
-- When only one source/destination pair available, click on ☯ will toggle the links for current tab.
+- When only one source/destination pair available, click on ☯ will toggle the links for the current tab.
 - When multiple destinations available, click on ☯ will display all destinations in a popup.
-- Cmd/Ctrl/Middle-click on an item from popup to open the link in a new tab.
-- You may change the icon for each destination instead of default ☯ in address bar.
-- Allows to disable rules.
+- Cmd/Ctrl/Middle-click on an item from the popup to open the link in a new tab.
+- You may change the icon for each destination instead of default ☯ in the address bar.
+- Allows disabling rules.
 
 ## Extension versions
 
 ### firefox
 
-Original version, keep it simple and lightweight.
+The original version, keep it simple and lightweight.
 
 ### firefox-advanced
 
 Advanced or experiment version, requires more permissions.  
-Differents from orignal version:
+Differences from the original version:
 
 - Option for replacing the favicon
 
@@ -55,8 +55,8 @@ Experiment, no public release yet.
 
 ## Download
 
-https://addons.mozilla.org/en-US/firefox/addon/location-switcher
-https://addons.mozilla.org/en-US/firefox/addon/location-switcher-advanced (Experimental)
+https://addons.mozilla.org/en-US/firefox/addon/location-switcher  
+https://addons.mozilla.org/en-US/firefox/addon/location-switcher-advanced (Experimental)  
 
 ## Source code
 
