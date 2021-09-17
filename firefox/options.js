@@ -27,6 +27,8 @@
 	}
 
 	function load() {
+		// getCurrentThemeInfo();
+
 		b.storage.sync.get(null).then((res) => {
 			if (res.data) {
 				let total = res.data.length || 0;
@@ -142,6 +144,22 @@
 			return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
 		}).join(''));
 	}
+
+	// theme test
+
+	// function getStyle(themeInfo) {
+	// 	console.log(themeInfo);
+	// 	if (themeInfo.colors) {
+	// 		console.log("accent color : " +  themeInfo.colors.frame);
+	// 		console.log("toolbar : " + themeInfo.colors.toolbar);
+	// 	}
+	// }
+	//
+	// async function getCurrentThemeInfo() {
+	// 	var themeInfo = await browser.theme.getCurrent();
+	// 	getStyle(themeInfo);
+	// }
+
 
 	// main
 

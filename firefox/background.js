@@ -2,8 +2,12 @@
 
 var currentTabURL = "";
 var userDefinedLocations = [];
-var sourceLocation = "", destinationLocations = [], locationIcons = {};
-var darkThemeEnabled = false, sortEnabled = false, forcePopupEnabled = false;
+var sourceLocation = "";
+var destinationLocations = [];
+var locationIcons = {};
+var darkThemeEnabled = false;
+var sortEnabled = false;
+var forcePopupEnabled = false;
 
 const darkFillColor = "#b1b1b1";
 
@@ -145,19 +149,18 @@ function updateIcon(tabId, iconPath, darkMode) {
 
 
 function getUserPreference() {
-
 	browser.storage.sync.get(null).then((res) => {
 		if (res.data) {
 			let total = res.data.length || 0;
 			for (var i = 0; i < total; i++) {
-				let disabled = res.data[i][4] || false;
+				let disabled = res.data[i][4] ? true : false;
 				if (disabled) {
 					continue;
 				}
 
 				let source = res.data[i][0];
 				let target = res.data[i][1];
-				let loop = res.data[i][2] || true;
+				let loop = res.data[i][2] ? true : false;
 				let icon = res.data[i][3] || "icons/default.svg";
 
 				if (userDefinedLocations[source] === undefined) {
@@ -184,9 +187,9 @@ function getUserPreference() {
 			// console.log("ready");
 		}
 
-		darkThemeEnabled = res.darkThemeEnabled || false;
-		sortEnabled = res.sortEnabled || false;
-		forcePopupEnabled = res.forcePopupEnabled || false;
+		darkThemeEnabled = res.darkThemeEnabled ? true : false;
+		sortEnabled = res.sortEnabled ? true : false;
+		forcePopupEnabled = res.forcePopupEnabled ? true : false;
 	});
 }
 
@@ -197,8 +200,8 @@ getUserPreference();
 browser.tabs.onUpdated.addListener((tabId, changeInfo) => {
 	// console.log("onUpdated");
 	// browser.pageAction.hide(tabId);
-	// console.log(changeInfo.status);
-	// console.log(changeInfo.url);
+	// console.log(tabId);
+	// console.log(changeInfo);
 	if (changeInfo.status && changeInfo.url) {
 		getNextLocation();
 	}
@@ -208,8 +211,51 @@ browser.tabs.onActivated.addListener(() => {
 	getNextLocation();
 });
 
-browser.pageAction.onClicked.addListener(() => {
-	browser.tabs.update({url: destinationLocations[0]});
+// This event will not fire if the page action has a popup.
+browser.pageAction.onClicked.addListener((tab, data) => {
+	// console.log('pageAction.onClicked');
+	// console.log(tab);
+	// console.log(data);
+	let openInNewTab = false;
+	if (data.button == 1 && data.modifiers.length == 0) {
+		// middle-click for all platform
+		openInNewTab = true;
+	}
+	else if (data.button == 0 && data.modifiers.length == 1 && (data.modifiers.includes("Command") || data.modifiers.includes("Ctrl") || data.modifiers.includes("MacCtrl"))) {
+		openInNewTab = true;
+	}
+
+	if (!openInNewTab) {
+		browser.tabs.update({url: destinationLocations[0]});
+	}
+	else {
+		browser.tabs.query({currentWindow: true}).then((tabs) => {
+			let id = false;
+			for (var index in tabs) {
+				if (tabs[index].url == destinationLocations[0]) {
+					id = tabs[index].id
+					break;
+				}
+			}
+			if (!id) {
+				browser.tabs.create({
+					active: true,
+					url: destinationLocations[0]
+				});
+			}
+			else {
+				browser.tabs.update(id, {
+					active: true,
+					// url: tab.url
+				}).then(() => {
+					browser.tabs.reload(id, {
+						bypassCache: true,
+					});
+				});
+			}
+		});
+	}
+
 });
 
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -223,3 +269,4 @@ browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
 		});
 	}
 });
+

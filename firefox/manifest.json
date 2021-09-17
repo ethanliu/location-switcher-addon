@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Location Switcher",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"description": "Switching between development and production sites.",
 	"homepage_url": "https://github.com/ethanliu/location-switcher-addon",
 
@@ -20,6 +20,7 @@
 	"permissions": [
 		"tabs",
 		//"activeTab",
+		//"theme",
 		"storage"
 	],
 
