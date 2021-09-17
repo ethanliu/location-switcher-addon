@@ -1,5 +1,29 @@
+:root {
+	--background-color: rgb(255, 255, 255);
+	--foreground-color: rgb(35, 34, 43);
+	--button-foreground-color: rgb(35, 34, 43);
+}
+
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background-color: rgb(35, 34, 43);
+		--foreground-color: rgb(251, 251, 254);
+		--button-foreground-color: rgb(35, 34, 43);
+	}
+}
+
+.dark {
+	--background-color: rgb(35, 34, 43);
+	--foreground-color: rgb(251, 251, 254);
+	--button-foreground-color: rgb(35, 34, 43);
+}
+
+
 body {
 	padding: 0;
+	background-color: var(--background-color);
+	color: var(--foreground-color);
 }
 
 input[type=file] {
@@ -20,7 +44,9 @@ li {
 }
 
 button, .button {
+	display: inline-block;
 	background-color: #efefef;
+	color: var(--button-foreground-color);
 	font-size: 1.2rem;
 	padding: 0.4rem 1rem;
 	border: 0;
@@ -44,7 +70,7 @@ button:hover, .button:hover {
 .row.header {
 	text-transform: uppercase;
 	font-size: 0.5em;
-	color: #777;
+	color: var(--foreground-color);
 }
 
 .row button {

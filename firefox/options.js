@@ -125,7 +125,6 @@
 		else {
 			d.querySelector("[name='custom']").value = "";
 		}
-
 	}
 
 	function b64EncodeUnicode(str) {
@@ -145,13 +144,48 @@
 		}).join(''));
 	}
 
+	// function hexToRgb(hex) {
+	// 	const v = parseInt(hex.replace('#', ''), 16);
+	// 	const rgb = {
+	// 		r: (v >> 16) & 255,
+	// 		g: (v >> 8) & 255,
+	// 		b: v & 255,
+	// 	};
+	// 	console.log(hex, rgb);
+	// 	return rgb;
+	// }
+	//
+	// function isDark(hex) {
+	// 	const rgb = hexToRgb(hex);
+	// 	const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+	// 	console.log(brightness);
+	// 	return brightness < 128 ? true : false;
+	// }
+
 	// theme test
 
 	// function getStyle(themeInfo) {
 	// 	console.log(themeInfo);
 	// 	if (themeInfo.colors) {
 	// 		console.log("accent color : " +  themeInfo.colors.frame);
-	// 		console.log("toolbar : " + themeInfo.colors.toolbar);
+	// 		// console.log("toolbar : " + themeInfo.colors.toolbar);
+	// 		const dark = isDark(themeInfo.colors.frame);
+	// 		if (dark) {
+	// 			document.getElementsByTagName('body')[0].classList.add('dark');
+	// 			// document.documentElement.style.setProperty('--background-color', themeInfo.colors.frame);
+	// 			// document.documentElement.style.setProperty('--foreground-color', '#ffffff');
+	// 		}
+	// 		else {
+	// 			document.getElementsByTagName('body')[0].classList.remove('dark');
+	// 		}
+	// 	}
+	// 	else {
+	// 		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+	// 			// document.getElementsByTagName('body')[0].classList.add('dark');
+	// 		}
+	// 		else {
+	// 			// document.getElementsByTagName('body')[0].classList.remove('dark');
+	// 		}
 	// 	}
 	// }
 	//
@@ -167,6 +201,7 @@
 	d.querySelector("form").addEventListener("submit", save);
 
 	d.addEventListener("click", (e) => {
+		// console.log(e.target);
 		if (e.target.className == "add-button") {
 			insertOptionAfter(e.target.parentNode.parentNode);
 		}
@@ -203,6 +238,15 @@
 			targetInput.value = value;
 			showIconModal(false);
 		}
+		// else if (e.target.className == 'theme-button') {
+		// 	//document.getElementsByTagName('body')[0].classList.toggle('dark');
+		// 	if (e.target.checked) {
+		// 		document.getElementsByTagName('body')[0].classList.add('dark');
+		// 	}
+		// 	else {
+		// 		document.getElementsByTagName('body')[0].classList.remove('dark');
+		// 	}
+		// }
 		// e.preventDefault();
 	});
 

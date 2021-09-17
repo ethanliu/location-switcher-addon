@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="options.css">
 </head>
-<body>
+<body class="">
 
 <ul>
 	<li>Uncheck "Loop" option to create a one-way route when you would like to create custom routes. This allows switching from "Source" to "Destination" but not backward.</li>
@@ -15,7 +15,7 @@
 <p><br></p>
 <form name="form">
 
-	<div><label><input type="checkbox" name="dark_theme" value="1"> Dark theme</label></div>
+	<div><label><input type="checkbox" name="dark_theme" value="1" class="theme-button"> Dark theme</label></div>
 	<div><label><input type="checkbox" name="force_popup" value="1"> Show popup even when there is only one destination</label></div>
 	<div><label><input type="checkbox" name="sort" value="1"> Sort destinations in popup</label></div>
 	<br><br>
@@ -32,7 +32,7 @@
 	</div>
 
 	<br>
-	<button type="submit">Save</button>
+	<button type="submit" class="">Save</button>
 	<button type="button" id="export-button" class="tool-buttons">Export</button>
 	<label for="import-button" class="button tool-buttons">Import</label><input type="file" id="import-button" name="file">
 
@@ -48,6 +48,7 @@
 		<div><label><input type="checkbox" name="disabled[]" value="1"></label></div>
 		<div><button type="button" class="add-button">+</button><button type="button" class="del-button">-</button></div>
 	</template>
+
 
 </form>
 
