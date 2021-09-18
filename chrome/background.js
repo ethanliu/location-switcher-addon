@@ -1,7 +1,13 @@
+"use strict";
+
 var currentTabURL = "";
 var userDefinedLocations = [];
-var sourceLocation = "", destinationLocations = [], locationIcons = {};
-var darkThemeEnabled = false, sortEnabled = false, forcePopupEnabled = false;
+var sourceLocation = "";
+var destinationLocations = [];
+var locationIcons = {};
+var darkThemeEnabled = false;
+var sortEnabled = false;
+var forcePopupEnabled = false;
 
 function getNextLocation() {
 	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -74,14 +80,14 @@ function getUserPreference() {
 		if (res.data) {
 			let total = res.data.length || 0;
 			for (var i = 0; i < total; i++) {
-				let disabled = res.data[i][4] || false;
+				let disabled = res.data[i][4] ? true : false;
 				if (disabled) {
 					continue;
 				}
 
 				let source = res.data[i][0];
 				let target = res.data[i][1];
-				let loop = res.data[i][2] || true;
+				let loop = res.data[i][2] ? true : false;
 				let icon = res.data[i][3] || "icons/light/default.png";
 
 				if (userDefinedLocations[source] === undefined) {
@@ -110,9 +116,9 @@ function getUserPreference() {
 			// console.log("ready");
 		}
 
-		darkThemeEnabled = res.darkThemeEnabled || false;
-		sortEnabled = res.sortEnabled || false;
-		forcePopupEnabled = res.forcePopupEnabled || false;
+		darkThemeEnabled = res.darkThemeEnabled ? true : false;
+		sortEnabled = res.sortEnabled ? true : false;
+		forcePopupEnabled = res.forcePopupEnabled ? true : false;
 	});
 }
 
@@ -140,10 +146,50 @@ chrome.tabs.onActivated.addListener(function(tab) {
 	getNextLocation();
 });
 
-chrome.browserAction.onClicked.addListener(function(tab) {
-// chrome.pageAction.onClicked.addListener(function(tab) {
-	console.log("onClicked");
-	chrome.tabs.update(tab.id, {url: destinationLocations[0]});
+chrome.browserAction.onClicked.addListener((tab, data) => {
+	console.log('pageAction.onClicked');
+	// console.log(tab);
+	// console.log(data);
+	let openInNewTab = false;
+	if (data.button == 1 && data.modifiers.length == 0) {
+		// middle-click for all platform
+		openInNewTab = true;
+	}
+	else if (data.button == 0 && data.modifiers.length == 1 && (data.modifiers.includes("Command") || data.modifiers.includes("Ctrl") || data.modifiers.includes("MacCtrl"))) {
+		openInNewTab = true;
+	}
+
+	if (!openInNewTab) {
+		chrome.tabs.update({url: destinationLocations[0]});
+	}
+	else {
+		chrome.tabs.query({currentWindow: true}, function(tabs) {
+			let id = false;
+			for (index in tabs) {
+				if (tabs[index].url == destinationLocations[0]) {
+					id = tabs[index].id
+					break;
+				}
+			}
+			if (!id) {
+				chrome.tabs.create({
+					active: true,
+					url: destinationLocations[0]
+				});
+			}
+			else {
+				chrome.tabs.update(id, {
+					active: true,
+					// url: tab.url
+				}, function() {
+					chrome.tabs.reload(id, {
+						bypassCache: true,
+					});
+				});
+			}
+		});
+	}
+
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {

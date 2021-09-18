@@ -114,28 +114,18 @@
 
 	d.addEventListener("mouseup", function(e) {
 		e.preventDefault();
-		// console.log(`${e.button}`); // middle-click
-		// console.log(`${e.buttons}`);
-		// console.log(`${e.ctrlKey}`);
-		// console.log(`${e.altKey}`);
-		// console.log(`${e.metaKey}`); // cmd on mac
-		// console.log(`${e.shiftKey}`);
-		// console.log(`${e.target}`);
-		// console.log(`${e.relatedtTarget}`);
 
-		if (e.button == 1) {
+		// cmd-click for macos
+		// ctrl-click for windows
+		const middleButton = (e.button == 1) ? true : false;
+		if (middleButton) {
+			// middle-click, always open in new tab by browser, ignore it to prevent open duplicate tab
 			return true;
 		}
 
-		// middle-click
-		// cmd-click for macos
-		// ctrl-click for windows
-		// e.button == 1 ||
-
-		var newTab = false;
-		if ((isMacOS && e.button == 0 && e.metaKey) || (!isMacOS && e.button == 0 && e.ctrlKey)) {
-			newTab = true;
-		}
+		const ctrlKey = (isMacOS) ? e.metaKey : e.ctrlKey;
+		const leftButton = (e.button == 0) ? true : false;
+		const newTab = (ctrlKey && leftButton) ? true : false;
 
 		openURL(e.target.href, newTab);
 		return false;
@@ -143,8 +133,6 @@
 
 	d.addEventListener("click", function(e) {
 		e.preventDefault();
-		// let newTab = (isMacOS) ? e.getModifierState("Meta") : e.getModifierState("Control");
-		// openURL(e.target.href, false);
 		return false;
 	});
 
