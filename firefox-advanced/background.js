@@ -8,6 +8,7 @@ var locationIcons = {};
 var darkThemeEnabled = false;
 var sortEnabled = false;
 var forcePopupEnabled = false;
+var alterFaviconEnabled = false;
 
 const darkFillColor = "#b1b1b1";
 
@@ -111,11 +112,12 @@ function updateIcon(tabId, iconPath, darkMode) {
 			reader.onload = () => {
 				// console.log("reader:");
 				// console.log(reader.result);
+				replaceTabIconWithBase64(tabId, reader.result);
 			};
 			reader.readAsDataURL(request.response);
 		}
 		else {
-			// console.log("request:");
+			// console.log("request:", request.response);
 
 			// var svg = request.response;
 			// if (darkThemeEnabled) {
@@ -126,43 +128,52 @@ function updateIcon(tabId, iconPath, darkMode) {
 			var svg = !darkMode ? request.response : request.response.replace(/#666666/g, darkFillColor);
 			svg = "data:image/svg+xml;base64," + b64EncodeUnicode(svg);
 
-			// pageAction icon
-
-			const canvas = document.createElement('canvas');
-			const ctx = canvas.getContext("2d");
-			const img = new Image();
-			img.onload = () => {
-				ctx.drawImage(img, 0, 0, 19, 19);
-				browser.pageAction.setIcon({
-					tabId: tabId,
-					imageData: ctx.getImageData(0, 0, 19, 19)
-				});
-			}
-			img.src = svg;
-
-			// tab icon
-			// Note: browser.tabs.executeScript requre '<all_urls>' permission, seems "activeTab" is not enough?
-
-			if (alterFaviconEnabled) {
-				browser.tabs.sendMessage(tabId, {}).then(() => {
-					// do nothing
-					// console.log("exists");
-				}, () => {
-					// console.log(error);
-					// inject once per-tab
-					browser.tabs.executeScript(tabId, {file: "/favicon.js"}).then(() => {
-						browser.tabs.sendMessage(tabId, {dataURI: svg});
-					});
-				});
-			}
-
+			replaceTabIconWithBase64(tabId, svg);
 		}
 	};
+
 	request.open("GET", iconPath, true);
-	// request.responseType = "blob";
+	if (!iconPath.startsWith('icons/')) {
+		request.responseType = "blob";
+	}
 	request.send();
 }
 
+function replaceTabIconWithBase64(tabId, str) {
+	// console.log(`replace: ${tabId}`, str);
+
+	// pageAction icon
+
+	const canvas = document.createElement('canvas');
+	const ctx = canvas.getContext("2d");
+	const img = new Image();
+	img.onload = () => {
+		ctx.drawImage(img, 0, 0, 19, 19);
+		browser.pageAction.setIcon({
+			tabId: tabId,
+			imageData: ctx.getImageData(0, 0, 19, 19)
+		});
+	}
+	img.src = str;
+
+
+	// MARK: [advanced]
+	// tab icon
+	// Note: browser.tabs.executeScript requre '<all_urls>' permission, seems "activeTab" is not enough?
+
+	if (alterFaviconEnabled !== undefined && alterFaviconEnabled) {
+		// replace favicon with svg
+		browser.tabs.sendMessage(tabId, {}).then(() => {
+			// do nothing
+			// console.log("exists");
+		}, () => {
+			// inject once per-tab
+			browser.tabs.executeScript(tabId, {file: "/favicon.js"}).then(() => {
+				browser.tabs.sendMessage(tabId, {dataURI: str});
+			});
+		});
+	}
+}
 
 function getUserPreference() {
 
