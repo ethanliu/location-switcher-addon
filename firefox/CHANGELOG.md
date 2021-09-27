@@ -4,6 +4,14 @@ All notable changes to this extension.
 
 ## [Unreleased]
 
+## [1.4.1] - 2021-09
+### Added
+- Added Open In New Tab support for page action icon (the one in address bar)
+
+### Fixed
+- Fixed some boolean variables may return wrong value issue [#17]
+- Fixed custom image URL not working issue
+
 ## [1.4.0] - 2020-02-13
 ### Added
 - This CHANGELOG file

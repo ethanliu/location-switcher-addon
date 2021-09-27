@@ -20,20 +20,20 @@ http://dev3.server -> http://dev1.server
 ### Notice
 
 - All routes followed by the order and did not check any duplicate or conflict.
-- file:// protocol is not support due to security policy by Firefox.
+- file:// protocol is not support due to the security policy by Firefox.
 
 ## How it works
 
-It walks through each route as a prefix by order to find the first matched record for the current URL.  
-Replace previously founded prefix with matched or selected destination from the current URL.  
+It walks through each route as a prefix to find the first matched record for the current URL.  
+Replace previously founded prefix with above or selected destination from the current URL.  
 
 ## Description
 
-- When only one source/destination pair available, click on ☯ will toggle the links for the current tab.
-- When multiple destinations available, click on ☯ will display all destinations in a popup.
-- Cmd/Ctrl/Middle-click on an item from the popup to open the link in a new tab.
-- You may change the icon for each destination instead of default ☯ in the address bar.
-- Allows disabling rules.
+- When only one source/destination pair is available, click on ☯ will toggle the links for the current tab.
+- When multiple destinations are available, click on ☯ will display all destinations in a popup.
+- Allows opening link in a new tab by cmd/ctrl/middle-click on ☯ or links from the popup.
+- Allows choosing an icon or custom image for each route.
+- Allows disabling routes without deleting.
 
 ## Extension versions
 
