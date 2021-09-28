@@ -2,12 +2,13 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<title>Preferences</title>
 	<link rel="stylesheet" href="options.css">
 </head>
 <body class="">
 
 <ul>
-	<li>Uncheck "Loop" option to create a one-way route when you would like to create custom routes. This allows switching from "Source" to "Destination" but not backward.</li>
+	<li>Uncheck the "Loop" option to create a one-way route when you would like to create custom routes. It allows switching from "Source" to "Destination" but not backward.</li>
 	<!-- <li>Multiple destinations of the same source will show as a popup.</li> -->
 	<!-- <li>SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></li> -->
 </ul>
@@ -17,7 +18,7 @@
 
 	<div><label><input type="checkbox" name="dark_theme" value="1" class="theme-button"> Dark theme</label></div>
 	<div><label><input type="checkbox" name="force_popup" value="1"> Show popup even when there is only one destination</label></div>
-	<div><label><input type="checkbox" name="sort" value="1"> Sort destinations in popup</label></div>
+	<div><label><input type="checkbox" name="sort" value="1"> Sort destinations in the popup</label></div>
 	<br><br>
 
 	<div class="row header">
@@ -36,10 +37,9 @@
 	<button type="button" id="export-button" class="tool-buttons">Export</button>
 	<label for="import-button" class="button tool-buttons">Import</label><input type="file" id="import-button" name="file">
 
-	<template class="template">
+	<!-- <template class="template">
 		<div>
 			<img src="icons/default.svg" class="icon icon-button">
-			<!-- <object class="icon icon-button" type="image/svg+xml" data="icons/default.svg"></object> -->
 			<input type="hidden" name="icon[]" value="">
 		</div>
 		<div><input type="url" name="source[]" value="" placeholder="http://"></div>
@@ -47,8 +47,7 @@
 		<div><label><input type="checkbox" name="loop[]" value="1" checked></label></div>
 		<div><label><input type="checkbox" name="disabled[]" value="1"></label></div>
 		<div><button type="button" class="add-button">+</button><button type="button" class="del-button">-</button></div>
-	</template>
-
+	</template> -->
 
 </form>
 
@@ -111,7 +110,6 @@
 	<div><button type="button" class="custom-icon-button">Custom</button></div>
 </div>
 
-<script src="sanitizer.js"></script>
 <script src="options.js"></script>
 
 </body>

@@ -1,4 +1,5 @@
 #!/bin/sh
+# https://extensionworkshop.com/documentation/develop/getting-started-with-web-ext/
 
 function usage() {
 cat << EOF
@@ -45,7 +46,8 @@ function buildFirefox() {
 
 	for file in `find . -type f -name "*.css"`; do
 		echo "Minify: ${file}"
-		/usr/bin/env cleancss --skip-rebase --inline none -o "${file}.min" "${file}"
+		# /usr/bin/env cleancss --skip-rebase --inline none -o "${file}.min" "${file}"
+		/usr/bin/env cleancss --inline none -o "${file}.min" "${file}"
 		rm "${file}"
 		mv "${file}.min" "${file}"
 	done

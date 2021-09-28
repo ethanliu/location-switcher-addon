@@ -77,12 +77,83 @@
 		return data;
 	}
 
-	function insertOptionAfter(node, data) {
-		const template = Sanitizer.createSafeHTML(d.querySelector(".template").innerHTML);
-		var box = d.createElement('div');
+	function createTemplate() {
+		const elements = [];
+
+		const _img = d.createElement('img');
+		_img.src = "icons/default.svg";
+		_img.classList = "icon icon-button";
+		elements.push(_img);
+
+		const _source = d.createElement('input');
+		_source.type = "url";
+		_source.name = "source[]";
+		_source.value = "";
+		_source.placeholder = "http://";
+		elements.push(_source);
+
+		const _target = d.createElement('input');
+		_target.type = "url";
+		_target.name = "target[]";
+		_target.value = "";
+		_target.placeholder = "http://";
+		elements.push(_target);
+
+		const _loop = d.createElement('input');
+		_loop.type = "checkbox";
+		_loop.name = "loop[]";
+		_loop.value = 1;
+		_loop.checked = true;
+		elements.push(_loop);
+
+		const _disabled = d.createElement('input');
+		_disabled.type = "checkbox";
+		_disabled.name = "disabled[]";
+		_disabled.value = 1;
+		_disabled.checked = false;
+		elements.push(_disabled);
+
+		const box = d.createElement('div');
 		box.className = "row";
+
+		for (e of elements) {
+			const wrap = d.createElement('div');
+			wrap.appendChild(e);
+			box.appendChild(wrap);
+		}
+
+		const _icon = d.createElement('input');
+		_icon.type = "hidden";
+		_icon.name = "icon[]";
+		_icon.value = "";
+
+		const _addButton = d.createElement('button');
+		_addButton.type = "button";
+		_addButton.className = "add-button";
+		_addButton.innerText = "+";
+
+		const _delButton = d.createElement('button');
+		_delButton.type = "button";
+		_delButton.className = "del-button";
+		_delButton.innerText = "-";
+
+		const wrap = d.createElement('div');
+		wrap.appendChild(_addButton);
+		wrap.appendChild(_delButton);
+		wrap.appendChild(_icon);
+
+		box.appendChild(wrap);
+
+		return box;
+	}
+
+	function insertOptionAfter(node, data) {
+		// const template = Sanitizer.createSafeHTML(d.querySelector(".template").innerHTML);
+		// var box = d.createElement('div');
+		// box.className = "row";
 		// box.setAttribute("draggable", true);
-		box.insertAdjacentHTML('beforeend', Sanitizer.unwrapSafeHTML(template));
+		// box.insertAdjacentHTML('beforeend', Sanitizer.unwrapSafeHTML(template));
+		const box = createTemplate();
 
 		if (data) {
 			let route = new Route(data[0], data[1], data[3], data[2], data[4]);
@@ -215,7 +286,8 @@
 		}
 		else if (e.target.classList.contains("icon-button")) {
 			targetImage = e.target;
-			targetInput = e.target.nextElementSibling;
+			// targetInput = e.target.nextElementSibling;
+			targetInput = e.target.parentElement.parentElement.querySelector("[name='icon[]']");
 			showIconModal(true);
 		}
 		else if (e.target.className == "icon") {

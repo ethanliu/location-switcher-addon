@@ -12,6 +12,9 @@ All notable changes to this extension.
 - Fixed some boolean variables may return wrong value issue [#17]
 - Fixed custom image URL not working issue
 
+### Changed
+- Create DOM elements instead of using template string to bypass the AMO insertAdjacentHTML warning
+
 ## [1.4.0] - 2020-02-13
 ### Added
 - This CHANGELOG file
