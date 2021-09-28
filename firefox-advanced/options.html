@@ -2,12 +2,13 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<title>Preferences</title>
 	<link rel="stylesheet" href="options.css">
 </head>
 <body>
 
 <ul>
-	<li>Uncheck "Loop" option to create a one-way route when you would like to create custom routes. This allows switching from "Source" to "Destination" but not backward.</li>
+	<li>Uncheck the "Loop" option to create a one-way route when you would like to create custom routes. It allows switching from "Source" to "Destination" but not backward.</li>
 	<!-- <li>Multiple destinations of the same source will show as a popup.</li> -->
 	<!-- <li>SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></li> -->
 </ul>
@@ -16,11 +17,10 @@
 <form name="form">
 
 	<div><label><input type="checkbox" name="dark_theme" value="1"> Dark theme</label></div>
-	<div><label><input type="checkbox" name="alter_favicon" value="1"> Replace favicon</label></div>
 	<div><label><input type="checkbox" name="force_popup" value="1"> Show popup even when there is only one destination</label></div>
 	<div><label><input type="checkbox" name="sort" value="1"> Sort destinations in popup</label></div>
+	<div><label><input type="checkbox" name="alter_favicon" value="1"> Replace favicon</label></div>
 	<br><br>
-
 
 	<div class="row header">
 		<div>Icon</div>
@@ -33,24 +33,10 @@
 	<div class="content">
 	</div>
 
-
 	<br>
 	<button type="submit">Save</button>
 	<button type="button" id="export-button" class="tool-buttons">Export</button>
 	<label for="import-button" class="button tool-buttons">Import</label><input type="file" id="import-button" name="file">
-
-	<template class="template">
-		<div>
-			<img src="icons/default.svg" class="icon icon-button">
-			<!-- <object class="icon icon-button" type="image/svg+xml" data="icons/default.svg"></object> -->
-			<input type="hidden" name="icon[]" value="">
-		</div>
-		<div><input type="url" name="source[]" value="" placeholder="http://"></div>
-		<div><input type="url" name="target[]" value="" placeholder="http://"></div>
-		<div><label><input type="checkbox" name="loop[]" value="1" checked></label></div>
-		<div><label><input type="checkbox" name="disabled[]" value="1"></label></div>
-		<div><button type="button" class="add-button">+</button><button type="button" class="del-button">-</button></div>
-	</template>
 
 </form>
 
@@ -110,10 +96,13 @@
 	<!-- <div><textarea name="custom" placeholder="Custom SVG or icon URL"></textarea></div> -->
 	<div><input type="url" name="custom" placeholder="Image URL, i.e. https://www.google.com/s2/favicons?sz=32&domain=www.google.com" value=""></div>
 	<div class="icons8">SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></div>
-	<div><button type="button" class="custom-icon-button">Custom</button></div>
+	<div>
+		<button type="button" class="custom-icon-button">Custom</button>
+		<button type="button" class="source-icon-button">Source</button>
+		<button type="button" class="destination-icon-button">Destination</button>
+	</div>
 </div>
 
-<script src="sanitizer.js"></script>
 <script src="options.js"></script>
 
 </body>
