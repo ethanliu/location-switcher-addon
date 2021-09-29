@@ -35,6 +35,23 @@ Replace previously founded prefix with above or selected destination from the cu
 - Allows choosing an icon or custom image for each route.
 - Allows disabling routes without deleting.
 
+
+## How to build
+
+There's no any dependency of this plugin, however it use eslint to validate javascript files, uglifyjs and cleancss to remove comments and reduce the file size for production.
+
+    npm i -g uglifyjs
+    npm i -g cleancss
+    npm i -g eslint
+    npm i -g web-ext
+
+To build the plugin and archive for code review (without any minify)
+
+    build.sh <target>
+
+It will generate two archives for the specified target in the dist folder.
+
+
 ## Extension versions
 
 ### firefox
@@ -47,6 +64,7 @@ Advanced or experiment version, requires more permissions.
 Differences from the original version:
 
 - Option for replacing the favicon
+- Favicon snatcher helper buttons
 
 ### chrome
 

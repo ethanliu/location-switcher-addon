@@ -9,7 +9,7 @@ Usage: `basename $0` <target>
 Targets:
 
 	firefox				Build Firefox extension
-	firefox-advanced	Build Firefox extension (advanced version)
+	firefox-advanced		Build Firefox extension (advanced version)
 	chrome				Build Chrome extension
 	icon				Build images for Chrome extension
 	test				Run eslint for every js file
@@ -27,42 +27,48 @@ function buildFirefox() {
 
 	tmp="tmp"
 
+	mkdir -p dist
 	rm -fr $tmp
 	cp -aR $buildName $tmp
 
+	if [ "${buildName}" = "firefox-advanced" ]; then
+		cp -a firefox/icons "${tmp}/"
+	fi
+
 	cd $tmp
 	version=`cat manifest.json | sed -n "s/.*\"version\": \"\(.*\)\".*/\1/p"`
-	echo "Build extension for ${buildName}"
-	echo "Version: ${version}"
+	echo "Target: ${buildName}\nVersion: ${version}\n"
+
+	/usr/bin/env web-ext lint
+
+	# echo "Build archive for code review..."
+	cp ../README.md ./;
+	zipfile="../dist/location-switcher-${buildName}-${version}-source.zip"
+	/usr/bin/env zip -r -FS -q "${zipfile}" * -x "*.DS_Store"
 
 	for file in `find . -type f -name "*.js"`; do
 		echo "Minify: ${file}"
-		# /usr/bin/env uglifyjs "${file}" > "${file}.min"
-		# just remove comments
-		/usr/bin/env uglifyjs "${file}" -o "${file}.min" -b
+		/usr/bin/env uglifyjs "${file}" -o "${file}.min" --compress
 		rm "${file}"
 		mv "${file}.min" "${file}"
 	done
 
 	for file in `find . -type f -name "*.css"`; do
 		echo "Minify: ${file}"
-		# /usr/bin/env cleancss --skip-rebase --inline none -o "${file}.min" "${file}"
 		/usr/bin/env cleancss --inline none -o "${file}.min" "${file}"
 		rm "${file}"
 		mv "${file}.min" "${file}"
 	done
 
-	# remove unnecessary files
-	rm *.md
+	# /usr/bin/env web-ext lint
 
-	# echo "Package: ${zipfile}"
-	# zipfile="../dist/location-switcher-firefox-addon-${version}.zip"
-	# mkdir -p ../dist
-	# zip -r -FS -q "${zipfile}" * -x "*.DS_Store"
+	# remove unnecessary files
+	# rm *.md
+	echo
 
 	cd ..
 
-	/usr/bin/env web-ext build -s $tmp -a dist --overwrite-dest
+	/usr/bin/env web-ext build -s $tmp -a dist --overwrite-dest --ignore-files "**/*.md"
 
 	rm -fr $tmp
 }
@@ -123,8 +129,10 @@ function buildImages() {
 }
 
 function test() {
+	# cd firefox; /usr/bin/env web-ext lint; cd ..
+	# cd firefox-advanced; /usr/bin/env web-ext lint; cd ..
 	for path in `find . -type f -name "*.js"`; do
-		eslint $path
+		/usr/bin/env eslint $path
 	done
 }
 

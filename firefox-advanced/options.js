@@ -118,7 +118,7 @@
 		const box = d.createElement('div');
 		box.className = "row";
 
-		for (e of elements) {
+		for (let e of elements) {
 			const wrap = d.createElement('div');
 			wrap.appendChild(e);
 			box.appendChild(wrap);
