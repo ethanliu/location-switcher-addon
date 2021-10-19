@@ -4,7 +4,7 @@ All notable changes to this extension.
 
 ## [Unreleased]
 
-## [1.4.1] - 2021-09
+## [1.4.2] - 2021-10
 ### Added
 - Added Open In New Tab support for page action icon (the one in address bar)
 
