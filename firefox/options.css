@@ -24,6 +24,12 @@ body {
 	padding: 0;
 	background-color: var(--background-color);
 	color: var(--foreground-color);
+	font-size: 1rem;
+	line-height: 1.2rem;
+}
+
+.wrapper {
+	padding: 1rem;
 }
 
 input[type=file] {
@@ -35,22 +41,23 @@ input[type="url"], input[type="text"] {
 }
 
 ul {
-	 margin: 0 0 0 2rem;
-	 padding: 0;
+	margin: 0 0 0 2rem;
+	padding: 0;
 }
 
 li {
-	 line-height: 1.5rem;
+	line-height: 1.5rem;
 }
 
 button, .button {
 	display: inline-block;
 	background-color: #efefef;
 	color: var(--button-foreground-color);
-	font-size: 1.2rem;
-	padding: 0.4rem 1rem;
 	border: 0;
-	border-radius: 2px;
+	font-family: monospace !important;
+	font-size: 0.75rem;
+	border-radius: 1rem;
+	padding: 0.5rem 1rem;
 }
 
 button:hover, .button:hover {
@@ -73,7 +80,14 @@ button:hover, .button:hover {
 	color: var(--foreground-color);
 }
 
+.row div:last-child {
+	display: flex;
+	/* justify-content: flex-end; */
+}
+
 .row button {
+	font-size: 0.7rem;
+	font-weight: bold;
 	padding: 0.2rem 0.5rem;
 	border-radius: 0px;
 }
@@ -86,9 +100,20 @@ button:hover, .button:hover {
 	border-radius: 0 2px 2px 0;
 }
 
-.tool-buttons {
-	float: right;
-	margin-left: 1rem;
+.toolbar {
+	display: flex;
+	justify-items: stretch;
+	margin-right: 1rem;
+}
+
+.toolbar div {
+	flex: 1;
+}
+
+.toolbar div:last-child {
+	display: flex;
+	gap: 1rem;
+	justify-content: flex-end;
 }
 
 .modal {

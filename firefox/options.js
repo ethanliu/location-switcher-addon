@@ -190,12 +190,12 @@
 			d.querySelector("[name='custom']").value = value;
 		}
 		// else if (!targetImage.src.startsWith("icons/") || !targetImage.src.startsWith("moz-extension://")) {
-		else if (targetImage.src.startsWith("http")) {
-			d.querySelector("[name='custom']").value = targetImage.src;
-		}
-		else {
-			d.querySelector("[name='custom']").value = "";
-		}
+		// else if (targetImage.src.startsWith("http")) {
+		// 	d.querySelector("[name='custom']").value = targetImage.src;
+		// }
+		// else {
+		// 	d.querySelector("[name='custom']").value = "";
+		// }
 	}
 
 	function b64EncodeUnicode(str) {
@@ -352,31 +352,35 @@
 		});
 	});
 
-	d.getElementById("import-button").addEventListener("change", e => {
-		const file = e.target.files[0] || null;
-		if (!file || !file.type.match('application/json')) {
-			// console.log("invalid file format");
-			return;
-		}
+	d.addEventListener("DOMContentLoaded", () => {
+		d.getElementById("import-button").addEventListener("change", e => {
+			console.log('[import]', e);
 
-		const reader = new FileReader();
-		reader.onload = () => {
-			try {
-				const json = JSON.parse(reader.result);
-				d.querySelector(".content").innerHTML = "";
-				for (const item of json) {
-					let route = new Route(item.source, item.destination, item.iconPath, item.looped, item.disabled);
-					if (route.valid()) {
-						insertOptionAfter(null, route.flatten());
+			const file = e.target.files[0] || null;
+			if (!file || !file.type.match('application/json')) {
+				console.log("invalid file format");
+				return;
+			}
+
+			const reader = new FileReader();
+			reader.onload = () => {
+				try {
+					const json = JSON.parse(reader.result);
+					d.querySelector(".content").innerHTML = "";
+					for (const item of json) {
+						let route = new Route(item.source, item.destination, item.iconPath, item.looped, item.disabled);
+						if (route.valid()) {
+							insertOptionAfter(null, route.flatten());
+						}
 					}
+					insertOptionAfter();
 				}
-				insertOptionAfter();
-			}
-			catch (error) {
-				alert(error);
-			}
-		};
-		reader.readAsText(file);
+				catch (error) {
+					alert(error);
+				}
+			};
+			reader.readAsText(file);
+		});
 	});
 
 

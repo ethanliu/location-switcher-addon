@@ -2,6 +2,8 @@
 
 firefox:
 	@./build.sh firefox
+
+firefox2:
 	@./build.sh firefox-advanced
 
 chrome:

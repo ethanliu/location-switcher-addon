@@ -7,110 +7,119 @@
 </head>
 <body class="">
 
-<ul>
-	<li>Uncheck the "Loop" option to create a one-way route when you would like to create custom routes. It allows switching from "Source" to "Destination" but not backward.</li>
-	<!-- <li>Multiple destinations of the same source will show as a popup.</li> -->
-	<!-- <li>SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></li> -->
-</ul>
+	<div class="wrapper">
+		<h1>Location Switcher</h1>
+		<ul>
+			<li>Uncheck the "Loop" option to create a one-way route when you would like to create custom routes. It allows switching from "Source" to "Destination" but not backward.</li>
+			<!-- <li>Multiple destinations of the same source will show as a popup.</li> -->
+			<!-- <li>SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></li> -->
+		</ul>
 
-<p><br></p>
-<form name="form">
+		<p><br></p>
+		<form id="form" name="form">
 
-	<div><label><input type="checkbox" name="dark_theme" value="1" class="theme-button"> Dark theme</label></div>
-	<div><label><input type="checkbox" name="force_popup" value="1"> Show popup even when there is only one destination</label></div>
-	<div><label><input type="checkbox" name="sort" value="1"> Sort destinations in the popup</label></div>
-	<br><br>
+			<div><label><input type="checkbox" name="dark_theme" value="1" class="theme-button"> Dark theme</label></div>
+			<div><label><input type="checkbox" name="force_popup" value="1"> Alway show popup</label></div>
+			<div><label><input type="checkbox" name="sort" value="1"> Sort destinations in the popup</label></div>
+			<br><br>
 
-	<div class="row header">
-		<div>Icon</div>
-		<div>Source</div>
-		<div>Destination</div>
-		<div>Loop</div>
-		<div>Disable</div>
-		<div></div>
-	</div>
-	<div class="content">
-	</div>
+			<div class="row header">
+				<div>Icon</div>
+				<div>Source</div>
+				<div>Destination</div>
+				<div>Loop</div>
+				<div>Disable</div>
+				<div></div>
+			</div>
+			<div class="content">
+			</div>
 
-	<br>
-	<button type="submit" class="">Save</button>
-	<button type="button" id="export-button" class="tool-buttons">Export</button>
-	<label for="import-button" class="button tool-buttons">Import</label><input type="file" id="import-button" name="file">
+			<br>
+			<div class="toolbar">
+				<div>
+					<button type="submit" class="button">Save</button>
+				</div>
+				<div>
+					<label for="import-button" class="button">Import</label><input type="file" id="import-button" name="file" accept="application/json">
+					<button type="button" id="export-button" class="button">Export</button>
+				</div>
+			</div>
 
-	<!-- <template class="template">
-		<div>
-			<img src="icons/default.svg" class="icon icon-button">
-			<input type="hidden" name="icon[]" value="">
+			<!-- <template class="template">
+				<div>
+					<img src="icons/default.svg" class="icon icon-button">
+					<input type="hidden" name="icon[]" value="">
+				</div>
+				<div><input type="url" name="source[]" value="" placeholder="http://"></div>
+				<div><input type="url" name="target[]" value="" placeholder="http://"></div>
+				<div><label><input type="checkbox" name="loop[]" value="1" checked></label></div>
+				<div><label><input type="checkbox" name="disabled[]" value="1"></label></div>
+				<div><button type="button" class="add-button">+</button><button type="button" class="del-button">-</button></div>
+			</template> -->
+
+		</form>
+
+		<div id="modal" class="modal">
+			<div class="item"><img class="icon" src="icons/default.svg"></div>
+
+			<div class="item"><img class="icon" src="icons/letters-alpha.svg"></div>
+			<div class="item"><img class="icon" src="icons/letters-beta.svg"></div>
+			<div class="item"><img class="icon" src="icons/letters-gama.svg"></div>
+			<div class="item"><img class="icon" src="icons/letters-mu.svg"></div>
+			<div class="item"><img class="icon" src="icons/letters-omega.svg"></div>
+			<div class="item"><img class="icon" src="icons/letters-pi.svg"></div>
+			<div class="item"><img class="icon" src="icons/letters-sigma.svg"></div>
+
+			<div class="item"><img class="icon" src="icons/char-batman.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-bot.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-flash.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-iron-man.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-mask.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-mummy.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-ninja-turtle.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-pirate.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-scream.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-sonic.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-spyro.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-super-mario.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-superman.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-unicorn.svg"></div>
+			<div class="item"><img class="icon" src="icons/char-walter-white.svg"></div>
+
+			<div class="item"><img class="icon" src="icons/server-client.svg"></div>
+			<div class="item"><img class="icon" src="icons/server-cloud.svg"></div>
+			<div class="item"><img class="icon" src="icons/server-individual.svg"></div>
+			<div class="item"><img class="icon" src="icons/server-nas.svg"></div>
+			<div class="item"><img class="icon" src="icons/server-pc.svg"></div>
+			<div class="item"><img class="icon" src="icons/server-root-server.svg"></div>
+			<div class="item"><img class="icon" src="icons/server-server.svg"></div>
+			<div class="item"><img class="icon" src="icons/server-stack.svg"></div>
+
+			<div class="item"><img class="icon" src="icons/bug.svg"></div>
+			<div class="item"><img class="icon" src="icons/code.svg"></div>
+			<div class="item"><img class="icon" src="icons/digger.svg"></div>
+			<div class="item"><img class="icon" src="icons/expermiment.svg"></div>
+			<div class="item"><img class="icon" src="icons/fairytale.svg"></div>
+			<div class="item"><img class="icon" src="icons/footprint.svg"></div>
+			<div class="item"><img class="icon" src="icons/hammer.svg"></div>
+			<div class="item"><img class="icon" src="icons/lab.svg"></div>
+			<div class="item"><img class="icon" src="icons/launch.svg"></div>
+			<div class="item"><img class="icon" src="icons/plugin.svg"></div>
+			<div class="item"><img class="icon" src="icons/puzzle.svg"></div>
+			<div class="item"><img class="icon" src="icons/roadblock.svg"></div>
+			<div class="item"><img class="icon" src="icons/stroller.svg"></div>
+			<div class="item"><img class="icon" src="icons/support.svg"></div>
+
+
+			<br>
+			<!-- <div><textarea name="custom" placeholder="Custom SVG or icon URL"></textarea></div> -->
+			<!-- <div><input type="url" name="custom" placeholder="Image URL, i.e. https://www.google.com/s2/favicons?sz=32&domain=www.google.com" value=""></div> -->
+			<div class="icons8">SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></div>
+			<!-- <div><button type="button" class="custom-icon-button">Custom</button></div> -->
 		</div>
-		<div><input type="url" name="source[]" value="" placeholder="http://"></div>
-		<div><input type="url" name="target[]" value="" placeholder="http://"></div>
-		<div><label><input type="checkbox" name="loop[]" value="1" checked></label></div>
-		<div><label><input type="checkbox" name="disabled[]" value="1"></label></div>
-		<div><button type="button" class="add-button">+</button><button type="button" class="del-button">-</button></div>
-	</template> -->
-
-</form>
-
-<div id="modal" class="modal">
-	<div class="item"><img class="icon" src="icons/default.svg"></div>
-
-	<div class="item"><img class="icon" src="icons/letters-alpha.svg"></div>
-	<div class="item"><img class="icon" src="icons/letters-beta.svg"></div>
-	<div class="item"><img class="icon" src="icons/letters-gama.svg"></div>
-	<div class="item"><img class="icon" src="icons/letters-mu.svg"></div>
-	<div class="item"><img class="icon" src="icons/letters-omega.svg"></div>
-	<div class="item"><img class="icon" src="icons/letters-pi.svg"></div>
-	<div class="item"><img class="icon" src="icons/letters-sigma.svg"></div>
-
-	<div class="item"><img class="icon" src="icons/char-batman.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-bot.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-flash.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-iron-man.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-mask.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-mummy.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-ninja-turtle.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-pirate.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-scream.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-sonic.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-spyro.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-super-mario.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-superman.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-unicorn.svg"></div>
-	<div class="item"><img class="icon" src="icons/char-walter-white.svg"></div>
-
-	<div class="item"><img class="icon" src="icons/server-client.svg"></div>
-	<div class="item"><img class="icon" src="icons/server-cloud.svg"></div>
-	<div class="item"><img class="icon" src="icons/server-individual.svg"></div>
-	<div class="item"><img class="icon" src="icons/server-nas.svg"></div>
-	<div class="item"><img class="icon" src="icons/server-pc.svg"></div>
-	<div class="item"><img class="icon" src="icons/server-root-server.svg"></div>
-	<div class="item"><img class="icon" src="icons/server-server.svg"></div>
-	<div class="item"><img class="icon" src="icons/server-stack.svg"></div>
-
-	<div class="item"><img class="icon" src="icons/bug.svg"></div>
-	<div class="item"><img class="icon" src="icons/code.svg"></div>
-	<div class="item"><img class="icon" src="icons/digger.svg"></div>
-	<div class="item"><img class="icon" src="icons/expermiment.svg"></div>
-	<div class="item"><img class="icon" src="icons/fairytale.svg"></div>
-	<div class="item"><img class="icon" src="icons/footprint.svg"></div>
-	<div class="item"><img class="icon" src="icons/hammer.svg"></div>
-	<div class="item"><img class="icon" src="icons/lab.svg"></div>
-	<div class="item"><img class="icon" src="icons/launch.svg"></div>
-	<div class="item"><img class="icon" src="icons/plugin.svg"></div>
-	<div class="item"><img class="icon" src="icons/puzzle.svg"></div>
-	<div class="item"><img class="icon" src="icons/roadblock.svg"></div>
-	<div class="item"><img class="icon" src="icons/stroller.svg"></div>
-	<div class="item"><img class="icon" src="icons/support.svg"></div>
+	</div>
 
 
-	<br>
-	<!-- <div><textarea name="custom" placeholder="Custom SVG or icon URL"></textarea></div> -->
-	<div><input type="url" name="custom" placeholder="Image URL, i.e. https://www.google.com/s2/favicons?sz=32&domain=www.google.com" value=""></div>
-	<div class="icons8">SVG icons by <a href="https://icons8.com" target="_blank">Icons8</a></div>
-	<div><button type="button" class="custom-icon-button">Custom</button></div>
-</div>
-
-<script src="options.js"></script>
-
+	<script src="options.js"></script>
 </body>
 </html>
